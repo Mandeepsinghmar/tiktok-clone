@@ -20,18 +20,19 @@ const SuggestedAccounts = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
           <Link href={`/profile/${user._id}`} key={user._id}>
             <div className='flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded'>
               <Image
-                width={44}
-                height={44}
+                width={38}
+                height={38}
                 className='rounded-full'
                 src={user.image}
                 alt='user-profile'
               />
               <div className='hidden 2xl:block'>
-                <p className='flex gap-1 items-center text-lg font-bold text-primary'>
-                  {user.userName} <GoVerified className='text-blue-400' />
+                <p className='flex gap-1 items-center text-md font-bold text-primary lowercase'>
+                  {user.userName.replace(/\s+/g, '')}{' '}
+                  <GoVerified className='text-blue-400' />
                 </p>
                 <p className='capitalize text-gray-400 text-xs'>
-                  @{user.userName}
+                  {user.userName}
                 </p>
               </div>
             </div>

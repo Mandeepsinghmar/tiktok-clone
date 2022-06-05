@@ -38,29 +38,33 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
   return (
     <div className=' flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
-        <Link href={`/profile/${post.postedBy._id}`}>
-          <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
+        <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
+          <Link href={`/profile/${post.postedBy._id}`}>
             <Image
-              width={80}
-              height={80}
+              width={62}
+              height={62}
               className='w-20 h-20 rounded-full'
               src={post.postedBy.image}
               alt='user-profile'
             />
-            <div>
+          </Link>
+          <div>
+            <Link href={`/profile/${post.postedBy._id}`}>
               <div className='flex items-center gap-1'>
-                <p className='flex gap-1 items-center text-2xl font-bold text-primary'>
+                <p className='flex gap-1 items-center text-md font-bold text-primary'>
                   {post.postedBy.userName}{' '}
-                  <GoVerified className='text-blue-400' />
+                  <GoVerified className='text-blue-400 text-md' />
                 </p>
-                <p className='capitalize text-gray-400 text-lg'>
+                <p className='capitalize font-medium text-xs text-gray-500'>
                   {post.postedBy.userName}
                 </p>
               </div>
-              <p className='mt-2'>{post.caption}</p>
-            </div>
+            </Link>
+            <Link href={`/detail/${post._id}`}>
+              <p className='mt-2 font-normal '>{post.caption}</p>
+            </Link>
           </div>
-        </Link>
+        </div>
       </div>
 
       <div className='ml-24 flex gap-4 relative'>
@@ -73,7 +77,7 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
               loop
               ref={videoRef}
               src={post?.video.asset.url}
-              className='w-400 h-600 rounded-xl cursor-pointer'
+              className='w-[295px] h-[528px] rounded-xl cursor-pointer'
             ></video>
           </Link>
 

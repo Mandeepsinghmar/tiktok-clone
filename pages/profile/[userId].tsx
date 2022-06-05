@@ -15,8 +15,8 @@ const Profile = ({ data }: any) => {
   const [videosList, setVideosList] = useState([]);
 
   const { user, userVideos, userLikedVideos } = data;
-  const videos = isVideos ? 'border-b-2 border-black' : '';
-  const liked = !isVideos ? 'border-b-2 border-black' : '';
+  const videos = isVideos ? 'border-b-2 border-black' : 'text-gray-400';
+  const liked = !isVideos ? 'border-b-2 border-black' : 'text-gray-400';
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -40,14 +40,15 @@ const Profile = ({ data }: any) => {
           alt='user-profile'
         />
         <div>
-          <p className='text-4xl font-bold tracking-wider flex gap-2 items=center'>
-            {user.userName} <GoVerified className='text-blue-400 text-2xl' />
+          <p className='text-2xl font-bold tracking-wider flex gap-2 items=center lowercase'>
+            {user.userName.replace(/\s+/g, '')}{' '}
+            <GoVerified className='text-blue-400 text-xl' />
           </p>
-          <p className='text-xl'> {user.userName}</p>
+          <p className='text-xl font-medium'> {user.userName}</p>
         </div>
       </div>
       <div>
-        <p className=' text-xl text-gray-600'>
+        <p className=' text-md text-gray-600'>
           🔑 Entrepreneur <br />
           🔮 Investor in Uber, Snap, Venmo, Twitter ✈️
           <br />
@@ -58,7 +59,7 @@ const Profile = ({ data }: any) => {
         <div className='flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full'>
           <p
             onClick={() => setIsVideos(true)}
-            className={`text-xl  font-semibold cursor-pointer ${videos} mt-2`}
+            className={`text-xl font-semibold cursor-pointer ${videos} mt-2`}
           >
             Videos
           </p>

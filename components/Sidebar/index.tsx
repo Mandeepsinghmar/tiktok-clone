@@ -25,10 +25,8 @@ const Sidebar: NextPage = () => {
       <div className='border-b-2 border-gray-200 pb-4'>
         <Link href='/'>
           <p className={pathname === '/' ? activeLink : normalLink}>
-            <AiFillHome className='text-4xl' />
-            <span className='capitalize text-2xl hidden 2xl:block'>
-              For You
-            </span>
+            <AiFillHome className='text-2xl' />
+            <span className='capitalize text-xl hidden 2xl:block'>For You</span>
           </p>
         </Link>
       </div>

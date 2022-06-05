@@ -16,27 +16,27 @@ function VideoSidebar({ post }) {
             (item) => item.postedBy._id === userProfile.googleId
           ).length > 0 ? (
             <div className='bg-primary rounded-full p-4 '>
-              <MdFavorite className='text-3xl text-red-500' />
+              <MdFavorite className='text-2xl text-red-500' />
             </div>
           ) : (
             <div className='bg-primary rounded-full p-4 '>
-              <MdFavorite className='text-3xl' />
+              <MdFavorite className='text-2xl' />
             </div>
           )}
 
-          <p className='text-md font-semibold '>{post.likes?.length}</p>
+          <p className='text-md font-semibold '>{post.likes?.length || 0}</p>
         </div>
         <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
           <div className='bg-primary rounded-full p-4 '>
-            <AiFillMessage className='text-3xl' />
+            <AiFillMessage className='text-2xl' />
           </div>
-          <p className='text-md font-semibold '>{post.comments?.length}</p>
+          <p className='text-md font-semibold '>{post.comments?.length || 0}</p>
         </div>
         <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
           <div className='bg-primary rounded-full p-4 '>
-            <FaShare className='text-3xl' />
+            <FaShare className='text-2xl' />
           </div>
-          <p className='text-md font-semibold '>{post.comments?.length}</p>
+          <p className='text-md font-semibold '>{post.comments?.length || 0}</p>
         </div>
       </div>
     </Link>

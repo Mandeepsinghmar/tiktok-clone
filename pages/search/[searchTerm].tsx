@@ -15,8 +15,8 @@ const Search = ({ videos }: any) => {
   const router = useRouter();
   const { searchTerm } = router.query;
 
-  const accounts = isAccounts ? 'border-b-2 border-black' : '';
-  const isVideos = !isAccounts ? 'border-b-2 border-black' : '';
+  const accounts = isAccounts ? 'border-b-2 border-black' : 'text-gray-400';
+  const isVideos = !isAccounts ? 'border-b-2 border-black' : 'text-gray-400';
   const searchedAccounts = suggestedAccounts?.filter((user) =>
     user.userName.toLowerCase().includes(searchTerm)
   );

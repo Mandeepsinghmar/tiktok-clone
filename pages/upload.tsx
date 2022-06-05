@@ -90,16 +90,16 @@ const Upload = () => {
   };
 
   return (
-    <div className='flex w-full h-full absolute left-0 top-24 mb-10 border-t-2 border-gray-200 pt-20 bg-[#F8F8F8] justify-center'>
-      <div className=' bg-white rounded-lg h-full flex gap-6 p-14 pt-6'>
+    <div className='flex w-full h-full absolute left-0 top-24 mb-10 pt-20 bg-[#F8F8F8] justify-center'>
+      <div className=' bg-white rounded-lg 2xl:h-[80vh] flex gap-6 p-14 pt-6'>
         <div>
           <div>
-            <p className='text-3xl font-bold'>Upload Video</p>
-            <p className='text-xl text-gray-400 mt-2'>
+            <p className='text-2xl font-bold'>Upload Video</p>
+            <p className='text-md text-gray-400 mt-1'>
               Post a video to your account
             </p>
           </div>
-          <div className=' border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center  outline-none mt-10 w-[380px] h-[600px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
+          <div className=' border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center  outline-none mt-10 w-[260px] h-[458px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
             {wrongFileType && (
               <p className='text-center text-3xl text-red-400 font-semibold'>
                 Please select an video file (mp4 or webm or ogg)
@@ -116,15 +116,15 @@ const Upload = () => {
                   <label className='cursor-pointer'>
                     <div className='flex flex-col items-center justify-center h-full'>
                       <div className='flex flex-col justify-center items-center'>
-                        <p className='font-bold text-2xl'>
-                          <FaCloudUploadAlt className='text-gray-340 text-6xl' />
+                        <p className='font-bold text-xl'>
+                          <FaCloudUploadAlt className='text-gray-300 text-6xl' />
                         </p>
-                        <p className='text-2xl font-semibold'>
+                        <p className='text-xl font-semibold'>
                           Select video to upload
                         </p>
                       </div>
 
-                      <p className='text-gray-400 text-center mt-10 text-xl leading-10'>
+                      <p className='text-gray-400 text-center mt-10 text-sm leading-10'>
                         MP4 or WebM or ogg <br />
                         720x1280 resolution or higher <br />
                         Up to 10 minutes <br />
@@ -132,7 +132,7 @@ const Upload = () => {
                       </p>
                       <p
                         type='button'
-                        className='bg-red-500 text-center mt-8 rounded text-white text-2xl font-medium p-2 w-60 outline-none'
+                        className='bg-red-500 text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'
                       >
                         Select file
                       </p>
@@ -145,14 +145,14 @@ const Upload = () => {
                     />
                   </label>
                 ) : (
-                  <div className=' w-[380px] rounded-3xl  p-4 flex flex-col justify-center items-center'>
+                  <div className=' rounded-3xl w-[300px]  p-4 flex flex-col gap-6 justify-center items-center'>
                     <video
-                      className='rounded-3xl h-[562px] mt-28 bg-black'
+                      className='rounded-xl h-[462px] mt-16 bg-black'
                       controls
                       loop
                       src={videoAsset?.url}
                     />
-                    <div className='mt-20 flex justify-between gap-20'>
+                    <div className=' flex justify-between gap-20'>
                       <p className='text-lg'>{videoAsset.originalFilename}</p>
                       <button
                         type='button'
@@ -169,25 +169,25 @@ const Upload = () => {
           </div>
         </div>
         <div className='flex flex-col gap-3 mt-28'>
-          <label className='text-xl font-medium '>Caption</label>
+          <label className='text-md font-medium '>Caption</label>
           <input
             type='text'
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
-            className='rounded w-650 outline-none text-2xl sm:text-xl border-2 border-gray-200 p-2'
+            className='rounded w-650 outline-none text-md border-2 border-gray-200 p-2'
           />
-          <label className='text-xl font-medium '>Choose a topic</label>
+          <label className='text-md font-medium '>Choose a topic</label>
 
           <select
             onChange={(e) => {
               setTopic(e.target.value);
             }}
-            className='outline-none w-650 border-2 border-gray-200 text-xl capitalize p-4 rounded cursor-pointer'
+            className='outline-none w-650 border-2 border-gray-200 text-md capitalize p-4 rounded cursor-pointer'
           >
             {topics.map((item) => (
               <option
                 key={item}
-                className=' outline-none capitalize bg-white text-gray-700 text-xl p-2 hover:bg-slate-300'
+                className=' outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300'
                 value={item}
               >
                 {item}
@@ -198,7 +198,7 @@ const Upload = () => {
             <button
               onClick={handleDiscard}
               type='button'
-              className='border-gray-300 border-2 text-xl font-medium p-2 rounded w-44 outline-none'
+              className='border-gray-300 border-2 text-md font-medium p-2 rounded w-44 outline-none'
             >
               Discard
             </button>
@@ -206,7 +206,7 @@ const Upload = () => {
               disabled={videoAsset?.url ? false : true}
               onClick={handlePost}
               type='button'
-              className='bg-red-500 text-white text-xl font-medium p-2 rounded w-44 outline-none'
+              className='bg-red-500 text-white text-md font-medium p-2 rounded w-44 outline-none'
             >
               {savingPost ? 'Posting...' : 'Post'}
             </button>

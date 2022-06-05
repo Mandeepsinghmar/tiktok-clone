@@ -17,7 +17,7 @@ const Footer = () => {
         ].map((item) => (
           <p
             key={item}
-            className='text-gray-400 text-md  hover:underline cursor-pointer'
+            className='text-gray-400 text-sm  hover:underline cursor-pointer'
           >
             {item}
           </p>
@@ -33,7 +33,7 @@ const Footer = () => {
         ].map((item) => (
           <p
             key={item}
-            className='text-gray-400 text-md  hover:underline cursor-pointer'
+            className='text-gray-400 text-sm  hover:underline cursor-pointer'
           >
             {item}
           </p>
@@ -50,13 +50,13 @@ const Footer = () => {
         ].map((item) => (
           <p
             key={item}
-            className='text-gray-400 text-md  hover:underline cursor-pointer'
+            className='text-gray-400 text-sm  hover:underline cursor-pointer'
           >
             {item}
           </p>
         ))}
       </div>
-      <p className='text-gray-400 text-md mt-5'>© 2022 TikTok</p>
+      <p className='text-gray-400 text-sm mt-5'>© 2022 TikTok</p>
     </div>
   );
 };

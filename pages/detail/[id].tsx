@@ -74,12 +74,12 @@ const Detail = ({ data }) => {
           <div className='relative flex-2 w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover'>
             <div className='opacity-90 absolute top-6 left-6 flex gap-6 z-50'>
               <p className='cursor-pointer ' onClick={() => router.back()}>
-                <MdOutlineCancel className='text-white text-[40px]' />
+                <MdOutlineCancel className='text-white text-[35px] hover:opacity-90' />
               </p>
               <div className='mt-1'>
                 <Image
-                  width={34}
-                  height={34}
+                  width={26}
+                  height={26}
                   className='rounded-full'
                   src='https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338431_1280.png'
                   alt='logo'
@@ -97,10 +97,10 @@ const Detail = ({ data }) => {
                 ></video>
               </div>
 
-              <div className='absolute top-[45%] left-[45%]  cursor-pointer'>
+              <div className='absolute top-[45%] left-[40%]  cursor-pointer'>
                 {!playing && (
                   <button onClick={onVideoClick}>
-                    <BsFillPlayFill className='text-white text-9xl' />
+                    <BsFillPlayFill className='text-white text-8xl' />
                   </button>
                 )}
               </div>
@@ -120,26 +120,26 @@ const Detail = ({ data }) => {
           <div className='relative'>
             <div className='mt-20'>
               <Link href={`/profile/${post.postedBy._id}`}>
-                <div className='flex gap-6 mb-4 bg-white w-full pl-10 cursor-pointer'>
+                <div className='flex gap-4 mb-4 bg-white w-full pl-10 cursor-pointer'>
                   <Image
-                    width={80}
-                    height={80}
+                    width={60}
+                    height={60}
                     alt='user-profile'
                     className='rounded-full'
                     src={post.postedBy.image}
                   />
                   <div>
-                    <p className='text-2xl font-bold tracking-wider flex gap-2 items=center'>
-                      {post.postedBy.userName}{' '}
+                    <p className='text-xl font-bold lowercase tracking-wider flex gap-2 items=center'>
+                      {post.postedBy.userName.replace(/\s+/g, '')}{' '}
                       <GoVerified className='text-blue-400 text-xl' />
                     </p>
-                    <p className='text-xl'> {post.postedBy.userName}</p>
+                    <p className='text-md'> {post.postedBy.userName}</p>
                   </div>
                 </div>
               </Link>
 
               <div className='px-10'>
-                <p className=' text-xl text-gray-600'>
+                <p className=' text-md text-gray-600'>
                   Pick the real @garyvee .. #1 #2 or #3 .. big shout out to
                   @NeemaNaz and @Ami Kozak
                 </p>

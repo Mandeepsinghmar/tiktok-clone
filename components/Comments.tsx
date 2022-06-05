@@ -22,7 +22,7 @@ const Comments = ({ userId, postId, comments, fetchDetails }: any) => {
 
   return (
     <div className='border-t-2 border-gray-200 pt-4 pl-10 mt-4 bg-[#F8F8F8] border-b-2'>
-      <div className='overflow-scroll h-[650px]'>
+      <div className='overflow-scroll h-[480px]'>
         {comments?.map((item, idx) => (
           <div className='flex gap-3 p-2' key={idx}>
             <Link href={`/profile/${item.postedBy._id}`}>
@@ -37,13 +37,13 @@ const Comments = ({ userId, postId, comments, fetchDetails }: any) => {
             <div>
               <div className='flex items-center gap-1'>
                 <Link href={`/profile/${item.postedBy._id}`}>
-                  <p className='flex cursor-pointer gap-1 items-center text-[20px] font-bold leading-6 text-primary'>
+                  <p className='flex cursor-pointer gap-1 items-center text-[18px] font-bold leading-6 text-primary'>
                     {item.postedBy.userName}{' '}
                     <GoVerified className='text-blue-400' />
                   </p>
                 </Link>
               </div>
-              <p className='mt-2 text-[16px]'>{item.comment}</p>
+              <p className='mt-2 text-[16px'>{item.comment}</p>
             </div>
           </div>
         ))}
@@ -53,10 +53,10 @@ const Comments = ({ userId, postId, comments, fetchDetails }: any) => {
           <input
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className='bg-primary px-6 py-4 text-xl font-medium border-2 w-[600px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
+            className='bg-primary px-6 py-4 text-md font-medium border-2 w-[400px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
             placeholder='Add comment..'
           />
-          <button className='text-xl text-gray-400' onClick={addComment}>
+          <button className='text-md text-gray-400' onClick={addComment}>
             Post
           </button>
         </form>
