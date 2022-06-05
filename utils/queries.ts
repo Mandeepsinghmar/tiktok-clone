@@ -60,7 +60,7 @@ export const postDetailQuery = (postId) => {
 };
 
 export const searchPostsQuery = (searchTerm) => {
-  const query = `*[_type == "post" && caption match '${searchTerm}*' || hashtag match '${searchTerm}*'] {
+  const query = `*[_type == "post" && caption match '${searchTerm}*' || topic match '${searchTerm}*'] {
         caption,
        video{
         asset->{
@@ -120,7 +120,7 @@ export const userLikedPostsQuery = (userId) => {
 };
 
 export const topicPostsQuery = (topic) => {
-  const query = `*[_type == "post" && hashtag match '${topic}*'] {
+  const query = `*[_type == "post" && topic match '${topic}*'] {
         caption,
        video{
         asset->{

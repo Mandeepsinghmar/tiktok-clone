@@ -4,8 +4,12 @@ import React from 'react';
 import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 const Discover = ({ videos }: any) => {
+  const router = useRouter();
+  const { topic } = router.query;
+  console.log(videos);
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 bg-white w-full'>
@@ -17,7 +21,7 @@ const Discover = ({ videos }: any) => {
           alt='img'
         />
         <div>
-          <p className='text-4xl font-bold tracking-wider'>#hiking</p>
+          <p className='text-4xl font-bold tracking-wider'>#{topic}</p>
           <p className='text-xl'>1.2B views</p>
         </div>
       </div>
