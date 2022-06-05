@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import type { NextPage } from 'next';
 
 import VideoCard from '../components/HomeVideoCard';
-import { fetcher } from '../utils';
+import { fetcher, base_url } from '../utils';
 
 const Home: NextPage = ({ data }: any) => {
   const [posts, setPosts] = useState(data);
@@ -19,7 +19,7 @@ const Home: NextPage = ({ data }: any) => {
   );
 };
 export const getServerSideProps = async () => {
-  const data = await fetcher('http://localhost:3000/api/posts');
+  const data = await fetcher(`${base_url}/api/posts`);
   return {
     props: { data },
   };

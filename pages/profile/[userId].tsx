@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { GoVerified } from 'react-icons/go';
-import { fetcher } from '../../utils';
+import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import {
   userCreatedPostsQuery,
@@ -80,7 +80,7 @@ const Profile = ({ data }: any) => {
 };
 
 export const getServerSideProps = async ({ params: { userId } }: any) => {
-  const data = await fetcher(`http://localhost:3000/api/profile/${userId}`);
+  const data = await fetcher(`${base_url}/api/profile/${userId}`);
   return {
     props: { data },
   };

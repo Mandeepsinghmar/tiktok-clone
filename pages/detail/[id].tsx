@@ -11,7 +11,7 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 
 import Comments from '../../components/Comments';
-import { fetcher } from '../../utils';
+import { fetcher, base_url } from '../../utils';
 import Image from 'next/image';
 import useAuthStore from '../../store/authStore';
 import Link from 'next/link';
@@ -200,7 +200,7 @@ const Detail = ({ data }) => {
 };
 
 export const getServerSideProps = async ({ params: { id } }: any) => {
-  const data = await fetcher(`http://localhost:3000/api/post/${id}`);
+  const data = await fetcher(`${base_url}/api/post/${id}`);
 
   return {
     props: { data },

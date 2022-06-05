@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React from 'react';
-import { fetcher } from '../../utils';
+import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import Image from 'next/image';
 
@@ -32,7 +32,7 @@ const Discover = ({ videos }: any) => {
 };
 
 export const getServerSideProps = async ({ params: { topic } }: any) => {
-  const videos = await fetcher(`http://localhost:3000/api/discover/${topic}`);
+  const videos = await fetcher(`${base_url}/api/discover/${topic}`);
   return {
     props: { videos },
   };

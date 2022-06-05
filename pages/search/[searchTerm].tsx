@@ -6,9 +6,8 @@ import React, { useState } from 'react';
 import { GoVerified } from 'react-icons/go';
 
 import VideoCard from '../../components/VideoCard';
-import useAuthStore from '../../store/authStore';
 import useUsersStore from '../../store/usersStore';
-import { fetcher } from '../../utils';
+import { fetcher, base_url } from '../../utils';
 
 const Search = ({ videos }: any) => {
   const [isAccounts, setIsAccounts] = useState(true);
@@ -77,9 +76,7 @@ const Search = ({ videos }: any) => {
 };
 
 export const getServerSideProps = async ({ params: { searchTerm } }: any) => {
-  const videos = await fetcher(
-    `http://localhost:3000/api/search/${searchTerm}`
-  );
+  const videos = await fetcher(`${base_url}/api/search/${searchTerm}`);
   return {
     props: { videos },
   };
