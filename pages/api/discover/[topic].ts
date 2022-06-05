@@ -1,0 +1,21 @@
+import { topicPostsQuery } from './../../../utils/queries';
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+import { client } from '../../../utils/client';
+
+// type Data = any;
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === 'GET') {
+    const { topic } = req.query;
+
+    const videosQuery = topicPostsQuery(topic);
+
+    const videos = await client.fetch(videosQuery);
+    console.log(videos);
+    res.status(200).json(videos);
+  }
+}
