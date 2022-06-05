@@ -145,14 +145,14 @@ const Upload = () => {
                     />
                   </label>
                 ) : (
-                  <div className=' w-[380px] rounded-3xl  p-4'>
+                  <div className=' w-[380px] rounded-3xl  p-4 flex flex-col justify-center items-center'>
                     <video
-                      className='rounded-3xl h-[600px] bg-black'
+                      className='rounded-3xl h-[562px] m-t-[115px] bg-black'
                       controls
                       loop
                       src={videoAsset?.url}
                     />
-                    <div className='mt-20 flex justify-between'>
+                    <div className='mt-20 flex justify-between gap-20'>
                       <p className='text-lg'>{videoAsset.originalFilename}</p>
                       <button
                         type='button'
