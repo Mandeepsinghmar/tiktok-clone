@@ -3,14 +3,18 @@
 import React from 'react';
 import { fetcher } from '../../utils';
 import VideoCard from '../../components/VideoCard';
+import Image from 'next/image';
 
 const Discover = ({ videos }: any) => {
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 bg-white w-full'>
-        <img
-          className='w-40 h-40 rounded'
+        <Image
+          width={160}
+          height={160}
+          className=' rounded'
           src='https://p16-amd-va.tiktokcdn.com/obj/musically-maliva-obj/b512979c082726d9f4ce8a9851eaac5a.png'
+          alt='img'
         />
         <div>
           <p className='text-4xl font-bold tracking-wider'>#hiking</p>

@@ -16,7 +16,7 @@ import Image from 'next/image';
 import useAuthStore from '../../store/authStore';
 import Link from 'next/link';
 
-const detail = ({ data }) => {
+const Detail = ({ data }) => {
   const [post, setPost] = useState(data);
   const [liked, setLiked] = useState(false);
   const [users, setUsers] = useState([]);
@@ -76,8 +76,10 @@ const detail = ({ data }) => {
               <p className='cursor-pointer ' onClick={() => router.back()}>
                 <MdOutlineCancel className='text-white text-[40px]' />
               </p>
-              <img
-                className='w-8 h-8 rounded-full mt-1'
+              <Image
+                width={32}
+                height={32}
+                className='rounded-full mt-1'
                 src='https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338431_1280.png'
                 alt='logo'
               />
@@ -205,4 +207,4 @@ export const getServerSideProps = async ({ params: { id } }: any) => {
   };
 };
 
-export default detail;
+export default Detail;

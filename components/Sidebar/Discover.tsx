@@ -10,10 +10,10 @@ const Discover = () => {
       <p className='text-gray-500 font-semibold m-3 mt-2 '>Discover</p>
       <div className='flex gap-3 flex-wrap'>
         {topics?.map((item) => (
-          <Link href={`/discover/${item.name}`}>
+          <Link href={`/discover/${item}`} key={item}>
             <p className='border-2 hover:bg-primary border-gray-300 px-4 rounded-full flex items-center gap-2 justify-center cursor-pointer'>
               <span className='font-bold text-2xl'>#</span>{' '}
-              <span className='text-gray-500'>{item.name}</span>
+              <span className='text-gray-500'>{item}</span>
             </p>
           </Link>
         ))}

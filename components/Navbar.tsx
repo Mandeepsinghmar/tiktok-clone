@@ -41,7 +41,8 @@ const Navbar = () => {
     setUser(userProfile);
   }, [userProfile]);
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     router.push(`/search/${searchValue}`);
   };
   return (
@@ -56,18 +57,20 @@ const Navbar = () => {
         />
       </Link>
       <div className='relative'>
-        <input
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className='bg-primary px-6 py-4 text-xl font-medium border-2 border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 w-450 rounded-full'
-          placeholder='Search accounts and videos'
-        />
-        <button
-          onClick={handleSearch}
-          className='absolute right-5 top-4 border-l-2 border-gray-300 pl-4 text-3xl text-gray-400'
-        >
-          <BiSearch />
-        </button>
+        <form onSubmit={handleSearch}>
+          <input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className='bg-primary px-6 py-4 text-xl font-medium border-2 border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 w-450 rounded-full'
+            placeholder='Search accounts and videos'
+          />
+          <button
+            onClick={handleSearch}
+            className='absolute right-5 top-4 border-l-2 border-gray-300 pl-4 text-3xl text-gray-400'
+          >
+            <BiSearch />
+          </button>
+        </form>
       </div>
       <div>
         {user ? (

@@ -1,4 +1,3 @@
-
 // @ts-nocheck
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -8,7 +7,7 @@ import useAuthStore from '../store/authStore';
 import { topics } from '../utils';
 import { client } from '../utils/client';
 
-const upload = () => {
+const Upload = () => {
   const [caption, setCaption] = useState('');
   const [topic, setTopic] = useState('cars');
   const [loading, setLoading] = useState(false);
@@ -187,11 +186,11 @@ const upload = () => {
           >
             {topics.map((item) => (
               <option
-                key={item.name}
+                key={item}
                 className=' outline-none capitalize bg-white text-gray-700 text-xl p-2 hover:bg-slate-300'
-                value={item.name}
+                value={item}
               >
-                {item.name}
+                {item}
               </option>
             ))}
           </select>
@@ -218,4 +217,4 @@ const upload = () => {
   );
 };
 
-export default upload;
+export default Upload;
