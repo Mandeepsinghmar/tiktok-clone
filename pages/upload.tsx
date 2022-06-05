@@ -90,8 +90,8 @@ const Upload = () => {
   };
 
   return (
-    <div className='flex w-full h-full absolute left-0 top-24 border-t-2 border-gray-200 pt-20 bg-[#F8F8F8] justify-center'>
-      <div className=' bg-white rounded-lg h-[80vh] flex gap-6 p-14 pt-6'>
+    <div className='flex w-full h-full absolute left-0 top-24 mb-10 border-t-2 border-gray-200 pt-20 bg-[#F8F8F8] justify-center'>
+      <div className=' bg-white rounded-lg h-full flex gap-6 p-14 pt-6'>
         <div>
           <div>
             <p className='text-3xl font-bold'>Upload Video</p>
@@ -147,7 +147,7 @@ const Upload = () => {
                 ) : (
                   <div className=' w-[380px] rounded-3xl  p-4 flex flex-col justify-center items-center'>
                     <video
-                      className='rounded-3xl h-[562px] m-t-[115px] bg-black'
+                      className='rounded-3xl h-[562px] mt-28 bg-black'
                       controls
                       loop
                       src={videoAsset?.url}
