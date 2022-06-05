@@ -3,11 +3,7 @@ export default {
   title: 'Post',
   type: 'document',
   fields: [
-    {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-    },
+ 
     {
       name: 'caption',
       title: 'Caption',

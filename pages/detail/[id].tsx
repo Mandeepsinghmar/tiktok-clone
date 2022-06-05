@@ -70,19 +70,21 @@ const Detail = ({ data }) => {
   return (
     <>
       {post && (
-        <div className='flex w-full h-screen absolute left-0 top-0 bg-white'>
+        <div className='flex w-full absolute left-0 top-0 bg-white'>
           <div className='relative flex-2 w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover'>
-            <div className='opacity-90 h-screen absolute top-6 left-6 flex gap-6 z-50'>
+            <div className='opacity-90 absolute top-6 left-6 flex gap-6 z-50'>
               <p className='cursor-pointer ' onClick={() => router.back()}>
                 <MdOutlineCancel className='text-white text-[40px]' />
               </p>
-              <Image
-                width={32}
-                height={32}
-                className='rounded-full mt-1'
-                src='https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338431_1280.png'
-                alt='logo'
-              />
+              <div className='mt-1'>
+                <Image
+                  width={34}
+                  height={34}
+                  className='rounded-full'
+                  src='https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338431_1280.png'
+                  alt='logo'
+                />
+              </div>
             </div>
             <div className='relative'>
               <div className='h-[100vh]'>

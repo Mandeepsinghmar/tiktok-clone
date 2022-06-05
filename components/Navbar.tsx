@@ -80,10 +80,10 @@ const Navbar = () => {
                 <IoMdAdd /> Upload
               </button>
             </Link>
-            <Link href={`/profile/${user.googleId}`}>
+            <Link href={`/profile/${user?.googleId}`}>
               <Image
                 className='rounded-full cursor-pointer'
-                src={user.imageUrl}
+                src={user?.imageUrl}
                 alt='user'
                 width={48}
                 height={48}
