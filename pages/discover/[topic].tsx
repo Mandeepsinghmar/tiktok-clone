@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import { fetcher } from '../../utils';
 import VideoCard from '../../components/VideoCard';

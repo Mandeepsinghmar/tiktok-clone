@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';

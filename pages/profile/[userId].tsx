@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect, useState } from 'react';
 import { GoVerified } from 'react-icons/go';
 import { fetcher } from '../../utils';

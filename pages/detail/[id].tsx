@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GoVerified } from 'react-icons/go';

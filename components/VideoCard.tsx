@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import { GoVerified } from 'react-icons/go';
 import { BsPlay } from 'react-icons/bs';

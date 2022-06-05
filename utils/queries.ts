@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const allPostsQuery = () => {
   const query = `*[_type == "post"] | order(_createdAt desc){
      caption,

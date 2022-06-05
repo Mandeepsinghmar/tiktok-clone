@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { allPostsQuery } from './../../utils/queries';

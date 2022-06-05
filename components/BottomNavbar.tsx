@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react'
 import {BiHome, BiSearch,BiMessageAltMinus} from "react-icons/bi";
 import {MdAddCircleOutline} from "react-icons/md";
