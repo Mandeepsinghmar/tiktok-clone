@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { GoVerified } from 'react-icons/go';
 
-const Comments = ({ userId, postId, comments, fetchDetails }) => {
+const Comments = ({ userId, postId, comments, fetchDetails }: any) => {
   const [comment, setComment] = useState('');
 
   const addComment = async (e) => {
