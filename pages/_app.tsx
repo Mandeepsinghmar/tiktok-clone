@@ -9,11 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div className='2xl:w-[1200px] m-auto'>
       <Navbar />
-      <div className='flex gap-20  pt-10'>
-        <div className='2xl:w-400 w-14 h-[90vh] 2xl:h-88vh overflow-hidden 2xl:hover:overflow-auto'>
+      <div className='flex gap-10 md:gap-20  2xl:pt-10'>
+        <div className='2xl:w-400 w-14 h-[90vh] 2xl:h-88vh overflow-hidden 2xl:hover:overflow-auto '>
           <Sidebar />
         </div>
-        <div className='flex flex-col gap-10 overflow-auto h-88vh videos flex-1'>
+        <div className=' mt-20 md:mt-4 flex flex-col gap-10 overflow-auto h-[84vh] md:h-88vh videos flex-1'>
           <Component {...pageProps} />
         </div>
       </div>

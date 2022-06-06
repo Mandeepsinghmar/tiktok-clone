@@ -39,19 +39,22 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
     <div className=' flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
         <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
-          <Link href={`/profile/${post.postedBy._id}`}>
-            <Image
-              width={62}
-              height={62}
-              className='w-20 h-20 rounded-full'
-              src={post.postedBy.image}
-              alt='user-profile'
-            />
-          </Link>
+          <div className='md:w-20 md:h-20 w-10 h-10'>
+            <Link href={`/profile/${post.postedBy._id}`}>
+              <Image
+                width={62}
+                height={62}
+                className=' rounded-full'
+                src={post.postedBy.image}
+                alt='user-profile'
+                layout='responsive'
+              />
+            </Link>
+          </div>
           <div>
             <Link href={`/profile/${post.postedBy._id}`}>
-              <div className='flex items-center gap-1'>
-                <p className='flex gap-1 items-center text-md font-bold text-primary'>
+              <div className='flex items-center gap-1 w-28 md:w-72'>
+                <p className='flex md:gap-1 items-center md:text-md font-bold text-primary'>
                   {post.postedBy.userName}{' '}
                   <GoVerified className='text-blue-400 text-md' />
                 </p>
@@ -67,7 +70,7 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
         </div>
       </div>
 
-      <div className='ml-24 flex gap-4 relative'>
+      <div className='lg:ml-24 ml-10 flex gap-4 relative'>
         <div
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
@@ -77,12 +80,12 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
               loop
               ref={videoRef}
               src={post?.video.asset.url}
-              className='w-[295px] h-[528px] rounded-xl cursor-pointer'
+              className='w-[295px] h-[340px] lg:h-[528px] rounded-xl cursor-pointer'
             ></video>
           </Link>
 
           {isHover && (
-            <div className='absolute bottom-6 cursor-pointer flex justify-between w-400 p-3'>
+            <div className='absolute bottom-6 cursor-pointer flex justify-between md:w-400 p-3'>
               {playing ? (
                 <button onClick={onVideoPress}>
                   <BsFillPauseFill className='text-white text-4xl' />
@@ -105,7 +108,7 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
           )}
         </div>
 
-        <div className='self-end'>
+        <div className='self-end mr-2'>
           <VideoSidebar post={post} />
         </div>
       </div>

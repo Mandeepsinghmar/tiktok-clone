@@ -30,21 +30,25 @@ const Profile = ({ data }: any) => {
   }, [isVideos]);
 
   return (
-    <div className='w-full  '>
-      <div className='flex gap-10 mb-4 bg-white w-full'>
-        <Image
-          width={120}
-          height={120}
-          className='rounded-full'
-          src={user.image}
-          alt='user-profile'
-        />
+    <div className='w-full'>
+      <div className='flex gap-6 md:gap-10 mb-4 bg-white w-full'>
+        <div className='w-16 h-16 md:w-32 md:h-32'>
+          <Image
+            width={120}
+            height={120}
+            layout='responsive'
+            className='rounded-full'
+            src={user.image}
+            alt='user-profile'
+          />
+        </div>
+
         <div>
-          <p className='text-2xl font-bold tracking-wider flex gap-2 items=center lowercase'>
+          <p className='text-md md:text-2xl font-bold tracking-wider flex gap-2 items=center lowercase'>
             {user.userName.replace(/\s+/g, '')}{' '}
-            <GoVerified className='text-blue-400 text-xl' />
+            <GoVerified className='text-blue-400 md:text-xl text-md' />
           </p>
-          <p className='text-xl font-medium'> {user.userName}</p>
+          <p className='text-sm font-medium'> {user.userName}</p>
         </div>
       </div>
       <div>

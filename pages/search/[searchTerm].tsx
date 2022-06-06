@@ -22,7 +22,7 @@ const Search = ({ videos }: any) => {
   );
   return (
     <div className='w-full  '>
-      <div className='flex gap-10 mb-10 border-b-2 border-gray-200 fixed bg-white w-full'>
+      <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed bg-white w-full'>
         <p
           onClick={() => setIsAccounts(true)}
           className={`text-xl  font-semibold cursor-pointer ${accounts} mt-2`}
@@ -41,7 +41,7 @@ const Search = ({ videos }: any) => {
           {searchedAccounts?.map((user, idx) => (
             <div
               key={idx}
-              className='mt-20 flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'
+              className='md:mt-20 flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'
             >
               <Image
                 width={80}
@@ -65,7 +65,7 @@ const Search = ({ videos }: any) => {
           ))}
         </div>
       ) : (
-        <div className='mt-20 flex flex-wrap gap-6'>
+        <div className='md:mt-20 flex flex-wrap gap-6'>
           {videos?.map((post: any, idx: number) => (
             <VideoCard post={post} key={idx} />
           ))}

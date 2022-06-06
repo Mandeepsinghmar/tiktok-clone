@@ -21,7 +21,7 @@ const Sidebar: NextPage = () => {
     'flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded';
 
   return (
-    <div className='flex-col justify-start mb-10 '>
+    <div className='flex-col justify-start mb-10 border-r-2 border-gray-200 2xl:border-0'>
       <div className='border-b-2 border-gray-200 pb-4'>
         <Link href='/'>
           <p className={pathname === '/' ? activeLink : normalLink}>
