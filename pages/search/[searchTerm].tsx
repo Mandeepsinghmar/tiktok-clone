@@ -22,7 +22,7 @@ const Search = ({ videos }: any) => {
   );
   return (
     <div className='w-full  '>
-      <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed bg-white w-full'>
+      <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed z-50 bg-white w-full'>
         <p
           onClick={() => setIsAccounts(true)}
           className={`text-xl  font-semibold cursor-pointer ${accounts} mt-2`}
@@ -37,35 +37,36 @@ const Search = ({ videos }: any) => {
         </p>
       </div>
       {isAccounts ? (
-        <div>
+        <div className='mt-10'>
           {searchedAccounts?.map((user, idx) => (
             <div
               key={idx}
-              className='md:mt-20 flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'
+              className=' flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'
             >
-              <Image
-                width={80}
-                height={80}
-                className='rounded-full'
-                alt='user-profile'
-                src={user.image}
-              />
+              <div>
+                <Image
+                  width={50}
+                  height={50}
+                  className='rounded-full'
+                  alt='user-profile'
+                  src={user.image}
+                />
+              </div>
               <div>
                 <div>
-                  <p className='flex gap-1 items-center text-2xl font-bold text-primary'>
+                  <p className='flex gap-1 items-center text-lg font-bold text-primary'>
                     {user.userName} <GoVerified className='text-blue-400' />
                   </p>
-                  <p className='capitalize text-gray-400 text-lg'>
+                  <p className='capitalize text-gray-400 text-sm'>
                     {user.userName}
                   </p>
                 </div>
-                <p className='mt-2'>It's my bio</p>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className='md:mt-20 flex flex-wrap gap-6'>
+        <div className='md:mt-16 flex flex-wrap gap-6'>
           {videos?.map((post: any, idx: number) => (
             <VideoCard post={post} key={idx} />
           ))}

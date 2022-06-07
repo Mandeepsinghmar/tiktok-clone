@@ -2,18 +2,58 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { topics } from '../../utils';
+import { BsEmojiSunglasses } from 'react-icons/bs';
+import { GrGamepad } from 'react-icons/gr';
+import { GiCakeSlice, GiGalaxy, GiLipstick } from 'react-icons/gi';
+import { FaPaw, FaMedal } from 'react-icons/fa';
 
 const Discover = () => {
+  const topics = [
+    {
+      name: 'comedy',
+      icon: <BsEmojiSunglasses />,
+    },
+    {
+      name: 'gaming',
+      icon: <GrGamepad />,
+    },
+    {
+      name: 'food',
+      icon: <GiCakeSlice />,
+    },
+    {
+      name: 'dance',
+      icon: <GiGalaxy />,
+    },
+    {
+      name: 'beauty',
+      icon: <GiLipstick />,
+    },
+    {
+      name: 'animals',
+      icon: <FaPaw />,
+    },
+    {
+      name: 'sports',
+      icon: <FaMedal />,
+    },
+  ];
+
   return (
-    <div className='border-b-2 border-gray-200 pb-6'>
-      <p className='text-gray-500 font-semibold m-3 mt-2 '>Discover</p>
+    <div className='xl:border-b-2 xl:border-gray-200 pb-6'>
+      <p className='text-gray-500 font-semibold m-3 mt-2 hidden xl:block '>
+        Discover
+      </p>
       <div className='flex gap-3 flex-wrap'>
         {topics?.map((item) => (
-          <Link href={`/discover/${item}`} key={item}>
-            <p className='border-2 hover:bg-primary border-gray-300 px-3 rounded-full flex items-center gap-2 justify-center cursor-pointer'>
-              <span className='font-bold text-md'>#</span>{' '}
-              <span className='text-gray-500 text-md'>{item}</span>
+          <Link href={`/discover/${item.name}`} key={item.name}>
+            <p className='xl:border-2 hover:bg-primary xl:border-gray-300 px-3 rounded-full flex items-center gap-2 justify-center cursor-pointer'>
+              <span className='font-bold text-2xl xl:text-md text-black'>
+                {item.icon}
+              </span>
+              <span className='text-gray-500 text-md hidden xl:block'>
+                {item.name}
+              </span>
             </p>
           </Link>
         ))}

@@ -13,7 +13,7 @@ function VideoSidebar({ post }) {
       <div>
         <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
           {post?.likes?.filter(
-            (item) => item.postedBy._id === userProfile.googleId
+            (item) => item.postedBy._id === userProfile?.googleId
           ).length > 0 ? (
             <div className='bg-primary rounded-full p-4 '>
               <MdFavorite className='text-2xl text-red-500' />

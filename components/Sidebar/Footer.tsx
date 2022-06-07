@@ -4,7 +4,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className='mt-6'>
+    <div className='mt-6 hidden xl:block'>
       <div className='flex flex-wrap gap-2'>
         {[
           'About',

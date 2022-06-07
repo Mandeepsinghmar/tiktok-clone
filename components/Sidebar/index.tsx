@@ -15,18 +15,18 @@ const Sidebar: NextPage = () => {
   const { fetchSuggestedAccounts, suggestedAccounts } = useUsersStore();
 
   const activeLink =
-    'flex gap-3 hover:bg-primary p-3 cursor-pointer font-semibold text-red-500 rounded';
+    'flex items-center gap-3 hover:bg-primary p-3 cursor-pointer font-semibold text-red-500 rounded';
 
   const normalLink =
-    'flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded';
+    'flex items-center gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded';
 
   return (
-    <div className='flex-col justify-start mb-10 border-r-2 border-gray-200 2xl:border-0'>
-      <div className='border-b-2 border-gray-200 pb-4'>
+    <div className='flex-col justify-start mb-10 border-r-2 border-gray-200 xl:border-0'>
+      <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
         <Link href='/'>
           <p className={pathname === '/' ? activeLink : normalLink}>
             <AiFillHome className='text-2xl' />
-            <span className='capitalize text-xl hidden 2xl:block'>For You</span>
+            <span className='capitalize text-xl hidden xl:block'>For You</span>
           </p>
         </Link>
       </div>

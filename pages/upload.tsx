@@ -91,7 +91,7 @@ const Upload = () => {
 
   return (
     <div className='flex w-full h-full absolute left-0 top-[60px] lg:top-[70px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center'>
-      <div className=' bg-white rounded-lg 2xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6'>
+      <div className=' bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6'>
         <div>
           <div>
             <p className='text-2xl font-bold'>Upload Video</p>
@@ -184,7 +184,15 @@ const Upload = () => {
             }}
             className='outline-none lg:w-650 border-2 border-gray-200 text-md capitalize lg:p-4 p-2 rounded cursor-pointer'
           >
-            {topics.map((item) => (
+            {[
+              'comedy',
+              'gaming',
+              'food',
+              'dance',
+              'beauty',
+              'sports',
+              'animals',
+            ].map((item) => (
               <option
                 key={item}
                 className=' outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300'

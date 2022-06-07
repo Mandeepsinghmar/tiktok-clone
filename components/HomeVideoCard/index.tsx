@@ -39,7 +39,7 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
     <div className=' flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
         <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
-          <div className='md:w-20 md:h-20 w-10 h-10'>
+          <div className='md:w-16 md:h-16 w-10 h-10'>
             <Link href={`/profile/${post.postedBy._id}`}>
               <Image
                 width={62}
@@ -85,23 +85,23 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
           </Link>
 
           {isHover && (
-            <div className='absolute bottom-6 cursor-pointer flex justify-between md:w-400 p-3'>
+            <div className='absolute bottom-6 cursor-pointer flex justify-between w-[200px] md:w-[283px] p-3'>
               {playing ? (
                 <button onClick={onVideoPress}>
-                  <BsFillPauseFill className='text-white text-4xl' />
+                  <BsFillPauseFill className='text-white text-2xl md:text-4xl' />
                 </button>
               ) : (
                 <button onClick={onVideoPress}>
-                  <BsFillPlayFill className='text-white text-4xl' />
+                  <BsFillPlayFill className='text-white text-2xl md:text-4xl' />
                 </button>
               )}
               {videoMuted ? (
                 <button onClick={() => setVideoMuted(false)}>
-                  <HiVolumeOff className='text-white text-4xl' />
+                  <HiVolumeOff className='text-white text-2xl md:text-4xl' />
                 </button>
               ) : (
                 <button onClick={() => setVideoMuted(true)}>
-                  <HiVolumeUp className='text-white text-4xl' />
+                  <HiVolumeUp className='text-white text-2xl md:text-4xl' />
                 </button>
               )}
             </div>

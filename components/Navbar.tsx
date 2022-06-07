@@ -16,7 +16,7 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 
-  const { userProfile, addUser, removeUser, setSearchText } = useAuthStore();
+  const { userProfile, addUser, removeUser } = useAuthStore();
 
   const responseGoogle = async (response: any) => {
     const { name, googleId, imageUrl } = response.profileObj;
@@ -46,7 +46,7 @@ const Navbar = () => {
     router.push(`/search/${searchValue}`);
   };
   return (
-    <div className='w-full flex justify-between items-center border-b-2 border-gray-200 p-2'>
+    <div className='w-full flex justify-between items-center border-b-2 border-gray-200 py-2 px-4'>
       <Link href='/'>
         <Image
           width={118}
@@ -57,7 +57,7 @@ const Navbar = () => {
         />
       </Link>
 
-      <div className='relative'>
+      <div className='relative hidden md:block'>
         <form
           onSubmit={handleSearch}
           className='absolute md:static top-10 -left-20 bg-white'
@@ -116,7 +116,7 @@ const Navbar = () => {
               clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
               render={(renderProps) => (
                 <button
-                  className='bg-red-500 text-xl text-white font-bold p-2 rounded-md w-28 outline-none'
+                  className='bg-red-500 text-lg text-white font-semibold px-6 py-1 rounded-md outline-none'
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >

@@ -10,23 +10,31 @@ const SuggestedAccounts = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
     fetchSuggestedAccounts();
   }, []);
 
+  const users = suggestedAccounts
+    .sort(() => 0.5 - Math.random())
+    .slice(0, suggestedAccounts.length);
+
   return (
-    <div className='border-b-2 border-gray-200 pb-4'>
-      <p className='text-gray-500 font-semibold m-3 mt-4 hidden 2xl:block'>
+    <div className='xl:border-b-2 border-gray-200 pb-4'>
+      <p className='text-gray-500 font-semibold m-3 mt-4 hidden xl:block'>
         Suggested accounts
       </p>
       <div>
-        {suggestedAccounts?.map((user) => (
+        {users?.slice(0, 6).map((user) => (
           <Link href={`/profile/${user._id}`} key={user._id}>
             <div className='flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded'>
-              <Image
-                width={38}
-                height={38}
-                className='rounded-full'
-                src={user.image}
-                alt='user-profile'
-              />
-              <div className='hidden 2xl:block'>
+              <div className='w-8 h-8'>
+                <Image
+                  width={34}
+                  height={34}
+                  className='rounded-full'
+                  src={user.image}
+                  alt='user-profile'
+                  layout='responsive'
+                />
+              </div>
+
+              <div className='hidden xl:block'>
                 <p className='flex gap-1 items-center text-md font-bold text-primary lowercase'>
                   {user.userName.replace(/\s+/g, '')}{' '}
                   <GoVerified className='text-blue-400' />
