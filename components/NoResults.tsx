@@ -1,6 +1,11 @@
 import React from 'react';
 
-const NoResults = ({ icon, text }: any) => {
+interface IProps {
+  icon: Element;
+  text: string;
+}
+
+const NoResults = ({ icon, text }: IProps) => {
   return (
     <div className='flex flex-col justify-center items-center'>
       <p className='text-8xl'>{icon}</p>

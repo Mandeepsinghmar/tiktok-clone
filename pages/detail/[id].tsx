@@ -3,9 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GoVerified } from 'react-icons/go';
-import { MdFavorite } from 'react-icons/md';
-import { AiFillMessage } from 'react-icons/ai';
-import { FaShare } from 'react-icons/fa';
+
 import { MdOutlineCancel } from 'react-icons/md';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
@@ -15,18 +13,14 @@ import { fetcher, base_url } from '../../utils';
 import Image from 'next/image';
 import useAuthStore from '../../store/authStore';
 import Link from 'next/link';
+import LikeComment from '../../components/LikeComment';
 
-const Detail = ({ data }) => {
-  const [post, setPost] = useState(data);
-  const [liked, setLiked] = useState(false);
-  const [users, setUsers] = useState([]);
+const Detail = ({ postDetails }) => {
+  const [post, setPost] = useState(postDetails);
   const [playing, setPlaying] = useState(false);
-  const [isHover, setIsHover] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
   const videoRef = useRef();
   const router = useRouter();
-  const { id } = router.query;
-  const { userProfile } = useAuthStore();
 
   const onVideoClick = () => {
     if (playing) {
@@ -37,42 +31,30 @@ const Detail = ({ data }) => {
       setPlaying(true);
     }
   };
+
   useEffect(() => {
     if (post) {
       videoRef.current.muted = videoMuted;
     }
   }, [videoMuted]);
 
-  const fetchDetails = async () => {
-    const data = await fetcher(`http://localhost:3000/api/post/${id}`);
-    setPost(data);
-  };
-  useEffect(() => {
-    fetchDetails();
-  }, []);
-
-  const like = async () => {
-    await fetch(`http://localhost:3000/api/post/${post._id}`, {
+  const handleLike = async () => {
+    const res = await fetch(`http://localhost:3000/api/post/${post._id}`, {
       method: 'PUT',
       body: JSON.stringify({ userId: post.userId }),
     });
-    fetchDetails();
+    const data = await res.json();
+
+    console.log(data.likes);
+    setPost({ ...post, likes: data.likes });
   };
 
-  useEffect(() => {
-    const allUsers = async () => {
-      const res = await fetcher('http://localhost:3000/api/auth');
-      setUsers(res);
-    };
-    allUsers();
-  }, []);
-  console.log(post, id);
   return (
     <>
       {post && (
-        <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap justify-center'>
-          <div className='relative flex-2 w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover'>
-            <div className='opacity-90 absolute top-6 left-6 flex gap-6 z-50'>
+        <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
+          <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover'>
+            <div className='opacity-90 absolute top-6 left-2 lg:left-6 flex gap-6 z-50'>
               <p className='cursor-pointer ' onClick={() => router.back()}>
                 <MdOutlineCancel className='text-white text-[35px] hover:opacity-90' />
               </p>
@@ -117,7 +99,7 @@ const Detail = ({ data }) => {
               )}
             </div>
           </div>
-          <div className='relative'>
+          <div className='relative w-[1000px] md:w-[900px] lg:w-[700px]'>
             <div className='lg:mt-20 mt-10'>
               <Link href={`/profile/${post.postedBy._id}`}>
                 <div className='flex gap-4 mb-4 bg-white w-full pl-10 cursor-pointer'>
@@ -137,61 +119,16 @@ const Detail = ({ data }) => {
                   </div>
                 </div>
               </Link>
-
               <div className='px-10'>
-                <p className=' text-md text-gray-600'>
-                  Pick the real @garyvee .. #1 #2 or #3 .. big shout out to
-                  @NeemaNaz and @Ami Kozak
-                </p>
+                <p className=' text-md text-gray-600'>{post.caption}</p>
               </div>
-              <div className='flex gap-6 mt-10 px-10'>
-                <div className=' flex gap-3 justify-center items-center'>
-                  {post?.likes?.filter(
-                    (item) => item.postedBy._id === userProfile.googleId
-                  ).length > 0 ? (
-                    <div
-                      className='bg-primary rounded-full p-4 cursor-pointer'
-                      onClick={(e) => {
-                        setLiked(false);
-                      }}
-                    >
-                      <MdFavorite
-                        className='text-2xl'
-                        style={{ color: 'red' }}
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      className='bg-primary rounded-full p-4 cursor-pointer'
-                      onClick={(e) => {
-                        like();
-                      }}
-                    >
-                      <MdFavorite className='text-2xl' />
-                    </div>
-                  )}
-                  <p className='text-md font-semibold '>
-                    {post.likes ? post.likes?.length : 0}
-                  </p>
-                </div>
-                <div className=' flex gap-3 justify-center items-center'>
-                  <div className='bg-primary rounded-full p-4 '>
-                    <AiFillMessage className='text-2xl' />
-                  </div>
-                  <p className='text-md font-semibold '>345</p>
-                </div>
-                <div className=' flex gap-2 justify-center items-center'>
-                  <div className='bg-primary rounded-full p-4 '>
-                    <FaShare className='text-3xl' />
-                  </div>
-                  <p className='text-md font-semibold '>45</p>
-                </div>
+              <div className='mt-10 px-10'>
+                <LikeComment post={post} flex='flex' handleLike={handleLike} />
               </div>
               <Comments
                 userId={post.userId}
                 postId={post._id}
                 comments={post.comments}
-                fetchDetails={fetchDetails}
               />
             </div>
           </div>
@@ -202,10 +139,10 @@ const Detail = ({ data }) => {
 };
 
 export const getServerSideProps = async ({ params: { id } }: any) => {
-  const data = await fetcher(`${base_url}/api/post/${id}`);
+  const postDetails = await fetcher(`${base_url}/api/post/${id}`);
 
   return {
-    props: { data },
+    props: { postDetails },
   };
 };
 

@@ -1,8 +1,7 @@
-// @ts-nocheck
-
+import { NextPage } from 'next';
 import React from 'react';
 
-const Footer = () => {
+const Footer: NextPage = () => {
   return (
     <div className='mt-6 hidden xl:block'>
       <div className='flex flex-wrap gap-2'>

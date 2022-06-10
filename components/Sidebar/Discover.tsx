@@ -1,13 +1,12 @@
-// @ts-nocheck
-
 import Link from 'next/link';
 import React from 'react';
 import { BsEmojiSunglasses } from 'react-icons/bs';
 import { GrGamepad } from 'react-icons/gr';
 import { GiCakeSlice, GiGalaxy, GiLipstick } from 'react-icons/gi';
 import { FaPaw, FaMedal } from 'react-icons/fa';
+import { NextPage } from 'next';
 
-const Discover = () => {
+const Discover: NextPage = () => {
   const topics = [
     {
       name: 'comedy',

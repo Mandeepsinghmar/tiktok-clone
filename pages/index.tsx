@@ -1,27 +1,31 @@
-// @ts-nocheck
-
-import React, { useState } from 'react';
-import type { NextPage } from 'next';
+import React from 'react';
+import { NextPage } from 'next';
 
 import VideoCard from '../components/HomeVideoCard';
 import { fetcher, base_url } from '../utils';
+import { Video } from '../types';
 
-const Home: NextPage = ({ data }: any) => {
-  const [posts, setPosts] = useState(data);
+interface IProps {
+  videos: Video[];
+}
+
+const Home: NextPage<IProps> = ({ videos }) => {
   return (
     <div className='flex flex-col gap-10 videos'>
-      {posts?.map((post: any, idx: number) => (
-        <div key={idx}>
-          <VideoCard post={post} posts={posts} setPosts={setPosts} />
+      {videos?.map((video: Video) => (
+        <div key={video._id}>
+          <VideoCard videoData={video} />
         </div>
       ))}
     </div>
   );
 };
+
 export const getServerSideProps = async () => {
-  const data = await fetcher(`${base_url}/api/posts`);
+  const videos = await fetcher(`${base_url}/api/posts`);
   return {
-    props: { data },
+    props: { videos },
   };
 };
+
 export default Home;

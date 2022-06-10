@@ -1,14 +1,21 @@
-// @ts-nocheck
-
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';
 import Image from 'next/image';
+import { NextPage } from 'next';
 
-const SuggestedAccounts = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
+interface IProps {
+  fetchSuggestedAccounts: () => void;
+  suggestedAccounts: [];
+}
+
+const SuggestedAccounts: NextPage<IProps> = ({
+  fetchSuggestedAccounts,
+  suggestedAccounts,
+}) => {
   useEffect(() => {
     fetchSuggestedAccounts();
-  }, []);
+  }, [fetchSuggestedAccounts]);
 
   const users = suggestedAccounts
     .sort(() => 0.5 - Math.random())
@@ -20,16 +27,19 @@ const SuggestedAccounts = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
         Suggested accounts
       </p>
       <div>
-        {users?.slice(0, 6).map((user) => (
+        {users?.slice(0, 6).map((user: any) => (
           <Link href={`/profile/${user._id}`} key={user._id}>
             <div className='flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded'>
-              <Image
-                width={34}
-                height={34}
-                className='rounded-full'
-                src={user.image}
-                alt='user-profile'
-              />
+              <div className='w-8 h-8'>
+                <Image
+                  width={34}
+                  height={34}
+                  className='rounded-full'
+                  src={user.image}
+                  alt='user-profile'
+                  layout='responsive'
+                />
+              </div>
 
               <div className='hidden xl:block'>
                 <p className='flex gap-1 items-center text-md font-bold text-primary lowercase'>

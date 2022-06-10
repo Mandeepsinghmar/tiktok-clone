@@ -22,7 +22,7 @@ export default async function handler(
     const { id } = req.query;
 
     if (comment) {
-      await client
+      const data = await client
         .patch(id)
         .setIfMissing({ comments: [] })
         .insert('after', 'comments[-1]', [
@@ -34,13 +34,9 @@ export default async function handler(
         ])
         .commit();
 
-      const query = postDetailQuery(req.query.id);
-
-      const data = await client.fetch(query);
-      console.log(data);
-      res.status(200).json(data[0]);
+      res.status(200).json(data);
     } else {
-      await client
+      const data = await client
         .patch(id)
         .setIfMissing({ likes: [] })
         .insert('after', 'likes[-1]', [
@@ -54,10 +50,8 @@ export default async function handler(
           },
         ])
         .commit();
-      const query = postDetailQuery(req.query.id);
-      const data = await client.fetch(query);
-      console.log(data);
-      res.status(200).json(data[0]);
+
+      res.status(200).json(data);
     }
   }
 }

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { useRouter } from 'next/router';
@@ -15,7 +13,7 @@ import { responseGoogle } from '../../utils';
 
 const Sidebar: NextPage = () => {
   const { pathname } = useRouter();
-  const { fetchSuggestedAccounts, suggestedAccounts } = useUsersStore();
+  const { fetchSuggestedAccounts, suggestedAccounts }: any = useUsersStore();
   const { addUser, userProfile } = useAuthStore();
 
   const activeLink =
@@ -54,7 +52,7 @@ const Sidebar: NextPage = () => {
                 </button>
               )}
               onSuccess={(res) => responseGoogle(res, addUser)}
-              onFailure={responseGoogle}
+              onFailure={(res) => responseGoogle(res, addUser)}
               cookiePolicy='single_host_origin'
             />
           </div>

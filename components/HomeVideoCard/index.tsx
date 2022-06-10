@@ -1,26 +1,25 @@
-// @ts-nocheck
-
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
-
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 
-import VideoSidebar from './VideoSidebar';
-import useAuthStore from '../../store/authStore';
-import { client } from '../../utils/client';
-import { uuid } from 'uuidv4';
-import { fetcher } from '../../utils';
+import VideoSidebar from '../LikeComment';
+import { Video } from '../../types';
 
-const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
+interface IProps {
+  videoData: Video;
+}
+
+const VideoCard: NextPage<IProps> = ({ videoData }) => {
   const [playing, setPlaying] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
-  const [users, setUsers] = useState([]);
   const videoRef = useRef(null);
+
+  const { caption, postedBy, video, likes, comments, _id } = videoData;
 
   const onVideoPress = () => {
     if (playing) {
@@ -40,31 +39,31 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
       <div>
         <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
           <div className='md:w-16 md:h-16 w-10 h-10'>
-            <Link href={`/profile/${post.postedBy._id}`}>
+            <Link href={`/profile/${postedBy._id}`}>
               <Image
                 width={62}
                 height={62}
                 className=' rounded-full'
-                src={post.postedBy.image}
+                src={postedBy.image}
                 alt='user-profile'
                 layout='responsive'
               />
             </Link>
           </div>
           <div>
-            <Link href={`/profile/${post.postedBy._id}`}>
-              <div className='flex items-center gap-1 w-28 md:w-72'>
-                <p className='flex md:gap-1 items-center md:text-md font-bold text-primary'>
-                  {post.postedBy.userName}{' '}
+            <Link href={`/profile/${postedBy._id}`}>
+              <div className='flex items-center gap-2'>
+                <p className='flex gap-2 items-center md:text-md font-bold text-primary'>
+                  {postedBy.userName}{' '}
                   <GoVerified className='text-blue-400 text-md' />
                 </p>
-                <p className='capitalize font-medium text-xs text-gray-500'>
-                  {post.postedBy.userName}
+                <p className='capitalize font-medium text-xs text-gray-500 hidden md:block'>
+                  {postedBy.userName}
                 </p>
               </div>
             </Link>
-            <Link href={`/detail/${post._id}`}>
-              <p className='mt-2 font-normal '>{post.caption}</p>
+            <Link href={`/detail/${_id}`}>
+              <p className='mt-2 font-normal '>{caption}</p>
             </Link>
           </div>
         </div>
@@ -75,11 +74,11 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          <Link href={`/detail/${post._id}`}>
+          <Link href={`/detail/${_id}`}>
             <video
               loop
               ref={videoRef}
-              src={post?.video.asset.url}
+              src={video.asset.url}
               className='w-[295px] h-[340px] lg:h-[528px] rounded-xl cursor-pointer'
             ></video>
           </Link>
@@ -107,10 +106,17 @@ const VideoCard: NextPage = ({ post, posts, setPosts }: any) => {
             </div>
           )}
         </div>
-
-        <div className='self-end mr-2'>
-          <VideoSidebar post={post} />
-        </div>
+        <Link href={`/detail/${_id}`}>
+          <div className='self-end mr-2'>
+            <VideoSidebar
+              id={_id}
+              likes={likes}
+              comments={comments}
+              flex=''
+              handleLike={() => {}}
+            />
+          </div>
+        </Link>
       </div>
     </div>
   );

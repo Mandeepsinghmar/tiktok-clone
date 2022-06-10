@@ -1,16 +1,10 @@
-// @ts-nocheck
-
 import React, { useEffect, useState } from 'react';
-import { GoVerified } from 'react-icons/go';
-import { fetcher, base_url } from '../../utils';
-import VideoCard from '../../components/VideoCard';
-import {
-  userCreatedPostsQuery,
-  userLikedPostsQuery,
-} from '../../utils/queries';
 import Image from 'next/image';
 import { BsFillCameraVideoFill } from 'react-icons/bs';
+import { GoVerified } from 'react-icons/go';
 
+import { fetcher, base_url } from '../../utils';
+import VideoCard from '../../components/VideoCard';
 import NoResults from '../../components/NoResults';
 
 const Profile = ({ data }: any) => {
@@ -94,7 +88,7 @@ const Profile = ({ data }: any) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { userId } }: any) => {
+export const getServerSideProps = async ({ params: { userId } }) => {
   const data = await fetcher(`${base_url}/api/profile/${userId}`);
   return {
     props: { data },
