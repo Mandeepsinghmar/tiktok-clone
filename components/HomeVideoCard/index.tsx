@@ -17,21 +17,21 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
   const [playing, setPlaying] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const { caption, postedBy, video, likes, comments, _id } = videoData;
 
   const onVideoPress = () => {
     if (playing) {
-      videoRef.current.pause();
+      if (null !== videoRef.current) videoRef.current.pause();
       setPlaying(false);
     } else {
-      videoRef.current.play();
+      if (null !== videoRef.current) videoRef.current.play();
       setPlaying(true);
     }
   };
   useEffect(() => {
-    videoRef.current.muted = videoMuted;
+    if (null !== videoRef.current) videoRef.current.muted = videoMuted;
   }, [videoMuted]);
 
   return (
