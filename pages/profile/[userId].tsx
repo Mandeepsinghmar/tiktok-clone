@@ -9,6 +9,9 @@ import {
   userLikedPostsQuery,
 } from '../../utils/queries';
 import Image from 'next/image';
+import { BsFillCameraVideoFill } from 'react-icons/bs';
+
+import NoResults from '../../components/NoResults';
 
 const Profile = ({ data }: any) => {
   const [isVideos, setIsVideos] = useState(true);
@@ -74,10 +77,17 @@ const Profile = ({ data }: any) => {
             Liked
           </p>
         </div>
-        <div className='flex gap-6 flex-wrap'>
-          {videosList?.map((post: any, idx: number) => (
-            <VideoCard key={idx} post={post} profile />
-          ))}
+        <div className='flex gap-6 flex-wrap justify-center'>
+          {videosList.length > 0 ? (
+            videosList.map((post: any, idx: number) => (
+              <VideoCard key={idx} post={post} profile />
+            ))
+          ) : (
+            <NoResults
+              icon={<BsFillCameraVideoFill />}
+              text={`No ${isVideos ? '' : 'Liked'} Videos Yet`}
+            />
+          )}
         </div>
       </div>
     </div>

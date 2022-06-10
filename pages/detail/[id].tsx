@@ -37,11 +37,11 @@ const Detail = ({ data }) => {
       setPlaying(true);
     }
   };
-  // useEffect(() => {
-  //   if (post) {
-  //     videoRef.current.muted = videoMuted;
-  //   }
-  // }, [videoMuted]);
+  useEffect(() => {
+    if (post) {
+      videoRef.current.muted = videoMuted;
+    }
+  }, [videoMuted]);
 
   const fetchDetails = async () => {
     const data = await fetcher(`http://localhost:3000/api/post/${id}`);
@@ -70,7 +70,7 @@ const Detail = ({ data }) => {
   return (
     <>
       {post && (
-        <div className='flex w-full absolute left-0 top-0 bg-white'>
+        <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap justify-center'>
           <div className='relative flex-2 w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover'>
             <div className='opacity-90 absolute top-6 left-6 flex gap-6 z-50'>
               <p className='cursor-pointer ' onClick={() => router.back()}>
@@ -87,7 +87,7 @@ const Detail = ({ data }) => {
               </div>
             </div>
             <div className='relative'>
-              <div className='h-[100vh]'>
+              <div className='lg:h-[100vh] h-[60vh]'>
                 <video
                   ref={videoRef}
                   onClick={onVideoClick}
@@ -100,25 +100,25 @@ const Detail = ({ data }) => {
               <div className='absolute top-[45%] left-[40%]  cursor-pointer'>
                 {!playing && (
                   <button onClick={onVideoClick}>
-                    <BsFillPlayFill className='text-white text-8xl' />
+                    <BsFillPlayFill className='text-white text-6xl lg:text-8xl' />
                   </button>
                 )}
               </div>
             </div>
-            <div className='absolute bottom-10 right-10  cursor-pointer'>
+            <div className='absolute bottom-5 lg:bottom-10 right-5 lg:right-10  cursor-pointer'>
               {videoMuted ? (
                 <button onClick={() => setVideoMuted(false)}>
-                  <HiVolumeOff className='text-white text-4xl' />
+                  <HiVolumeOff className='text-white text-3xl lg:text-4xl' />
                 </button>
               ) : (
                 <button onClick={() => setVideoMuted(true)}>
-                  <HiVolumeUp className='text-white text-4xl' />
+                  <HiVolumeUp className='text-white text-3xl lg:text-4xl' />
                 </button>
               )}
             </div>
           </div>
           <div className='relative'>
-            <div className='mt-20'>
+            <div className='lg:mt-20 mt-10'>
               <Link href={`/profile/${post.postedBy._id}`}>
                 <div className='flex gap-4 mb-4 bg-white w-full pl-10 cursor-pointer'>
                   <Image

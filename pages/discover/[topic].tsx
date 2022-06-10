@@ -5,6 +5,9 @@ import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { BsFillCameraVideoFill } from 'react-icons/bs';
+
+import NoResults from '../../components/NoResults';
 
 const Discover = ({ videos }: any) => {
   const router = useRouter();
@@ -33,9 +36,16 @@ const Discover = ({ videos }: any) => {
       </div>
       <p className='my-4 text-xl text-gray-400'>Enjoy {topic} videos</p>
       <div className='flex flex-wrap gap-6'>
-        {videos?.map((post: any, idx: number) => (
-          <VideoCard key={idx} post={post} profile={false} />
-        ))}
+        {videos.length > 0 ? (
+          videos.map((post: any, idx: number) => (
+            <VideoCard key={idx} post={post} profile={false} />
+          ))
+        ) : (
+          <NoResults
+            icon={<BsFillCameraVideoFill />}
+            text={`No Video Results for ${topic}`}
+          />
+        )}
       </div>
     </div>
   );

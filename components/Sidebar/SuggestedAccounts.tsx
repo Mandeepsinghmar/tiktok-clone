@@ -23,16 +23,13 @@ const SuggestedAccounts = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
         {users?.slice(0, 6).map((user) => (
           <Link href={`/profile/${user._id}`} key={user._id}>
             <div className='flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded'>
-              <div className='w-8 h-8'>
-                <Image
-                  width={34}
-                  height={34}
-                  className='rounded-full'
-                  src={user.image}
-                  alt='user-profile'
-                  layout='responsive'
-                />
-              </div>
+              <Image
+                width={34}
+                height={34}
+                className='rounded-full'
+                src={user.image}
+                alt='user-profile'
+              />
 
               <div className='hidden xl:block'>
                 <p className='flex gap-1 items-center text-md font-bold text-primary lowercase'>

@@ -4,10 +4,14 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { GoVerified } from 'react-icons/go';
+import { BsFillCameraVideoFill } from 'react-icons/bs';
+import { AiOutlineUser } from 'react-icons/ai';
 
+import NoResults from '../../components/NoResults';
 import VideoCard from '../../components/VideoCard';
 import useUsersStore from '../../store/usersStore';
 import { fetcher, base_url } from '../../utils';
+import Link from 'next/link';
 
 const Search = ({ videos }: any) => {
   const [isAccounts, setIsAccounts] = useState(true);
@@ -20,6 +24,7 @@ const Search = ({ videos }: any) => {
   const searchedAccounts = suggestedAccounts?.filter((user) =>
     user.userName.toLowerCase().includes(searchTerm)
   );
+  console.log(videos);
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed z-50 bg-white w-full'>
@@ -37,39 +42,52 @@ const Search = ({ videos }: any) => {
         </p>
       </div>
       {isAccounts ? (
-        <div className='mt-10'>
-          {searchedAccounts?.map((user, idx) => (
-            <div
-              key={idx}
-              className=' flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'
-            >
-              <div>
-                <Image
-                  width={50}
-                  height={50}
-                  className='rounded-full'
-                  alt='user-profile'
-                  src={user.image}
-                />
-              </div>
-              <div>
-                <div>
-                  <p className='flex gap-1 items-center text-lg font-bold text-primary'>
-                    {user.userName} <GoVerified className='text-blue-400' />
-                  </p>
-                  <p className='capitalize text-gray-400 text-sm'>
-                    {user.userName}
-                  </p>
+        <div className='md:mt-16'>
+          {searchedAccounts.length > 0 ? (
+            searchedAccounts.map((user, idx) => (
+              <Link key={idx} href={`/profile/${user._id}`}>
+                <div className=' flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'>
+                  <div>
+                    <Image
+                      width={50}
+                      height={50}
+                      className='rounded-full'
+                      alt='user-profile'
+                      src={user.image}
+                    />
+                  </div>
+                  <div>
+                    <div>
+                      <p className='flex gap-1 items-center text-lg font-bold text-primary'>
+                        {user.userName} <GoVerified className='text-blue-400' />
+                      </p>
+                      <p className='capitalize text-gray-400 text-sm'>
+                        {user.userName}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </Link>
+            ))
+          ) : (
+            <NoResults
+              icon={<AiOutlineUser />}
+              text={`No Account Results for ${searchTerm}`}
+            />
+          )}
         </div>
       ) : (
-        <div className='md:mt-16 flex flex-wrap gap-6'>
-          {videos?.map((post: any, idx: number) => (
-            <VideoCard post={post} key={idx} />
-          ))}
+        <div className='md:mt-16 flex flex-wrap gap-6 justify-center '>
+          {videos.length > 0 ? (
+            videos.map((post: any, idx: number) => (
+              <VideoCard post={post} key={idx} />
+            ))
+          ) : (
+            <NoResults
+              icon={<BsFillCameraVideoFill />}
+              text={`No Video Results for ${searchTerm}`}
+            />
+          )}
         </div>
       )}
     </div>

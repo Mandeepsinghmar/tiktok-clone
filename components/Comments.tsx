@@ -21,8 +21,8 @@ const Comments = ({ userId, postId, comments, fetchDetails }: any) => {
   };
 
   return (
-    <div className='border-t-2 border-gray-200 pt-4 pl-10 mt-4 bg-[#F8F8F8] border-b-2'>
-      <div className='overflow-scroll h-[480px]'>
+    <div className='border-t-2 border-gray-200 pt-4 pl-10 mt-4 bg-[#F8F8F8] border-b-2 pb-[100px]'>
+      <div className='overflow-scroll lg:h-[480px]'>
         {comments?.map((item, idx) => (
           <div className='flex gap-3 p-2' key={idx}>
             <Link href={`/profile/${item.postedBy._id}`}>
@@ -48,12 +48,12 @@ const Comments = ({ userId, postId, comments, fetchDetails }: any) => {
           </div>
         ))}
       </div>
-      <div className='absolute bottom-0 left-0  pb-6 px-10 '>
+      <div className='fixed lg:absolute bottom-0 left-0  lg:pb-6 lg:px-10 '>
         <form onSubmit={addComment} className='flex gap-4'>
           <input
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className='bg-primary px-6 py-4 text-md font-medium border-2 w-[400px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
+            className='bg-primary px-6 py-4 text-md font-medium border-2 w-[330px] md:w-[400px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
             placeholder='Add comment..'
           />
           <button className='text-md text-gray-400' onClick={addComment}>
