@@ -1,19 +1,26 @@
 import React from 'react';
-import { AiFillHome } from 'react-icons/ai';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import GoogleLogin from 'react-google-login';
+import { AiFillHome } from 'react-icons/ai';
+
 import SuggestedAccounts from './SuggestedAccounts';
 import Discover from './Discover';
 import Footer from './Footer';
-import { NextPage } from 'next';
 import useUsersStore from '../../store/usersStore';
-import GoogleLogin from 'react-google-login';
 import useAuthStore from '../../store/authStore';
 import { responseGoogle } from '../../utils';
+import { IUser } from '../../types';
+
+interface IProps {
+  fetchSuggestedAccounts?: () => void;
+  suggestedAccounts?: IUser[];
+}
 
 const Sidebar: NextPage = () => {
   const { pathname } = useRouter();
-  const { fetchSuggestedAccounts, suggestedAccounts }: any = useUsersStore();
+  const { fetchSuggestedAccounts, suggestedAccounts }: IProps = useUsersStore();
   const { addUser, userProfile } = useAuthStore();
 
   const activeLink =
@@ -60,9 +67,10 @@ const Sidebar: NextPage = () => {
       )}
 
       <Discover />
-
       <SuggestedAccounts
+        // @ts-ignore
         fetchSuggestedAccounts={fetchSuggestedAccounts}
+        // @ts-ignore
         suggestedAccounts={suggestedAccounts}
       />
       <Footer />

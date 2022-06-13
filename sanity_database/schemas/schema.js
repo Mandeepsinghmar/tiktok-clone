@@ -7,8 +7,6 @@ import post from './post';
 import user from './user';
 import comment from './comment';
 import postedBy from './postedBy';
-import like from './like';
-
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -21,6 +19,5 @@ export default createSchema({
     user,
     comment,
     postedBy,
-    like,
   ]),
 });

@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { BsFillCameraVideoFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 
 import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import NoResults from '../../components/NoResults';
+import { IUser, Video } from '../../types';
 
-const Profile = ({ data }: any) => {
+interface IProps {
+  data: {
+    user: IUser;
+    userVideos: Video[];
+    userLikedVideos: Video[];
+  };
+}
+
+const Profile = ({ data }: IProps) => {
   const [isVideos, setIsVideos] = useState(true);
-  const [videosList, setVideosList] = useState([]);
+  const [videosList, setVideosList] = useState<Video[]>([]);
 
   const { user, userVideos, userLikedVideos } = data;
   const videos = isVideos ? 'border-b-2 border-black' : 'text-gray-400';
@@ -24,7 +32,7 @@ const Profile = ({ data }: any) => {
       }
     };
     fetchVideos();
-  }, [isVideos]);
+  }, [isVideos, userLikedVideos, userVideos]);
 
   return (
     <div className='w-full'>
@@ -35,6 +43,7 @@ const Profile = ({ data }: any) => {
             height={120}
             layout='responsive'
             className='rounded-full'
+            //  @ts-ignore
             src={user.image}
             alt='user-profile'
           />
@@ -42,6 +51,7 @@ const Profile = ({ data }: any) => {
 
         <div>
           <p className='text-md md:text-2xl font-bold tracking-wider flex gap-2 items=center lowercase'>
+            {/*  @ts-ignore */}
             {user.userName.replace(/\s+/g, '')}{' '}
             <GoVerified className='text-blue-400 md:text-xl text-md' />
           </p>
@@ -71,16 +81,13 @@ const Profile = ({ data }: any) => {
             Liked
           </p>
         </div>
-        <div className='flex gap-6 flex-wrap justify-center'>
+        <div className='flex gap-6 flex-wrap justify-center md:justify-start'>
           {videosList.length > 0 ? (
             videosList.map((post: any, idx: number) => (
               <VideoCard key={idx} post={post} profile />
             ))
           ) : (
-            <NoResults
-              icon={<BsFillCameraVideoFill />}
-              text={`No ${isVideos ? '' : 'Liked'} Videos Yet`}
-            />
+            <NoResults text={`No ${isVideos ? '' : 'Liked'} Videos Yet`} />
           )}
         </div>
       </div>
@@ -88,7 +95,11 @@ const Profile = ({ data }: any) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { userId } }) => {
+export const getServerSideProps = async ({
+  params: { userId },
+}: {
+  params: { userId: string };
+}) => {
   const data = await fetcher(`${base_url}/api/profile/${userId}`);
   return {
     props: { data },

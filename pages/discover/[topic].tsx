@@ -1,18 +1,20 @@
-// @ts-nocheck
-
 import React from 'react';
-import { fetcher, base_url } from '../../utils';
-import VideoCard from '../../components/VideoCard';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { BsFillCameraVideoFill } from 'react-icons/bs';
 
+import { fetcher, base_url } from '../../utils';
+import VideoCard from '../../components/VideoCard';
 import NoResults from '../../components/NoResults';
+import { Video } from '../../types';
 
-const Discover = ({ videos }: any) => {
+interface IProps {
+  videos: Video[];
+}
+
+const Discover = ({ videos }: IProps) => {
   const router = useRouter();
   const { topic } = router.query;
-  console.log(videos);
+
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 bg-white w-full'>
@@ -41,10 +43,7 @@ const Discover = ({ videos }: any) => {
             <VideoCard key={idx} post={post} profile={false} />
           ))
         ) : (
-          <NoResults
-            icon={<BsFillCameraVideoFill />}
-            text={`No Video Results for ${topic}`}
-          />
+          <NoResults text={`No Video Results for ${topic}`} />
         )}
       </div>
     </div>

@@ -7,7 +7,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const VideoCard = ({ post, profile }) => {
-  console.log(post);
   return (
     <div>
       <Link href={`/detail/${post._id}`}>

@@ -1,26 +1,32 @@
-// @ts-nocheck
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GoVerified } from 'react-icons/go';
-
+import Image from 'next/image';
+import Link from 'next/link';
 import { MdOutlineCancel } from 'react-icons/md';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 
 import Comments from '../../components/Comments';
 import { fetcher, base_url } from '../../utils';
-import Image from 'next/image';
-import useAuthStore from '../../store/authStore';
-import Link from 'next/link';
 import LikeComment from '../../components/LikeComment';
+import useAuthStore from '../../store/authStore';
+import { IUser, Video } from '../../types';
 
-const Detail = ({ postDetails }) => {
+interface IProps {
+  postDetails: Video;
+}
+
+const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
   const [playing, setPlaying] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
-  const videoRef = useRef();
+  const [comment, setComment] = useState<string>('');
+
+  const videoRef = useRef<any>();
   const router = useRouter();
+
+  const { userProfile }: { userProfile: IUser } = useAuthStore();
 
   const onVideoClick = () => {
     if (playing) {
@@ -36,17 +42,37 @@ const Detail = ({ postDetails }) => {
     if (post) {
       videoRef.current.muted = videoMuted;
     }
-  }, [videoMuted]);
+  }, [post, videoMuted]);
 
   const handleLike = async () => {
-    const res = await fetch(`http://localhost:3000/api/post/${post._id}`, {
+    const res = await fetch('http://localhost:3000/api/like', {
       method: 'PUT',
-      body: JSON.stringify({ userId: post.userId }),
+      body: JSON.stringify({ userId: userProfile.googleId, postId: post._id }),
     });
     const data = await res.json();
-
-    console.log(data.likes);
     setPost({ ...post, likes: data.likes });
+  };
+
+  const handleDislike = async () => {
+    const res = await fetch('http://localhost:3000/api/dislike', {
+      method: 'PUT',
+      body: JSON.stringify({ userId: userProfile.googleId, postId: post._id }),
+    });
+    const data = await res.json();
+    setPost({ ...post, likes: data.likes });
+  };
+
+  const addComment = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (comment) {
+      const res = await fetch(`${base_url}/api/post/${post._id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ userId: userProfile.googleId, comment }),
+      });
+      const data = await res.json();
+      setComment('');
+      setPost({ ...post, comments: data.comments });
+    }
   };
 
   return (
@@ -74,7 +100,7 @@ const Detail = ({ postDetails }) => {
                   ref={videoRef}
                   onClick={onVideoClick}
                   loop
-                  src={post && post.video.asset.url}
+                  src={post?.video?.asset.url}
                   className=' h-full cursor-pointer'
                 ></video>
               </div>
@@ -123,11 +149,18 @@ const Detail = ({ postDetails }) => {
                 <p className=' text-md text-gray-600'>{post.caption}</p>
               </div>
               <div className='mt-10 px-10'>
-                <LikeComment post={post} flex='flex' handleLike={handleLike} />
+                <LikeComment
+                  likes={post.likes}
+                  comments={post.comments}
+                  flex='flex'
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                />
               </div>
               <Comments
-                userId={post.userId}
-                postId={post._id}
+                comment={comment}
+                setComment={setComment}
+                addComment={addComment}
                 comments={post.comments}
               />
             </div>

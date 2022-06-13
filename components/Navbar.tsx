@@ -1,48 +1,28 @@
-// @ts-nocheck
-
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { GoogleLogout, GoogleLogin } from 'react-google-login';
-import toast from 'react-hot-toast';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { BiSearch } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
+
 import useAuthStore from '../store/authStore';
+import { IUser } from '../types';
 import { responseGoogle } from '../utils';
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 
   const { userProfile, addUser, removeUser } = useAuthStore();
 
-  // const responseGoogle = async (response: any) => {
-  //   const { name, googleId, imageUrl } = response.profileObj;
-  //   addUser(response.profileObj);
-  //   const doc = {
-  //     _id: googleId,
-  //     _type: 'user',
-  //     userName: name,
-  //     image: imageUrl,
-  //   };
-
-  //   const res = await fetch('http://localhost:3000/api/auth', {
-  //     method: 'POST',
-  //     body: JSON.stringify(doc),
-  //   });
-  //   const msg = await res.json();
-  //   console.log(msg);
-  //   toast.success(msg);
-  // };
-
   useEffect(() => {
     setUser(userProfile);
   }, [userProfile]);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     router.push(`/search/${searchValue}`);
   };
@@ -92,7 +72,8 @@ const Navbar = () => {
             <Link href={`/profile/${user?.googleId}`}>
               <Image
                 className='rounded-full cursor-pointer'
-                src={user?.imageUrl}
+                //  @ts-ignore
+                src={user.imageUrl}
                 alt='user'
                 width={40}
                 height={40}
@@ -111,7 +92,6 @@ const Navbar = () => {
                 </button>
               )}
               onLogoutSuccess={() => removeUser()}
-              cookiePolicy='single_host_origin'
             />
           </div>
         ) : (
@@ -128,7 +108,7 @@ const Navbar = () => {
                 </button>
               )}
               onSuccess={(res) => responseGoogle(res, addUser)}
-              onFailure={responseGoogle}
+              onFailure={(res) => responseGoogle(res, addUser)}
               cookiePolicy='single_host_origin'
             />
           </div>

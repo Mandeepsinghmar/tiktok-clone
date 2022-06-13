@@ -1,19 +1,5 @@
-// caption,
-//        video{
-//         asset->{
-//           _id,
-//           url
-//         }
-//       },
-//    _id,
-//      postedBy->{
-//       _id,
-//       userName,
-//       image
-//     },
-//     likes,
-//     comments,
-//     userId
+import { ChangeEvent } from 'react';
+
 export interface Video {
   caption: string;
   video: {
@@ -28,7 +14,31 @@ export interface Video {
     userName: string;
     image: string;
   };
-  likes: [];
-  comments: [];
+  likes: {
+    postedBy: {
+      _id: string;
+      userName: string;
+      image: string;
+    };
+  }[];
+  comments: {
+    comment: string;
+    _key: string;
+    postedBy: {
+      _ref: string;
+    };
+  }[];
   userId: string;
+}
+
+export interface IUser {
+  googleId?: string;
+  _id?: string;
+  userName?: string;
+  image?: string;
+  imageUrl?: string;
+}
+
+interface SuggestedAccountsState {
+  suggestedAccounts?: IUser[];
 }

@@ -1,25 +1,26 @@
-// @ts-nocheck
+import { SanityAssetDocument } from '@sanity/client';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import useAuthStore from '../store/authStore';
-import { topics } from '../utils';
-import { client } from '../utils/client';
+import { IUser } from '../types';
+import { createPost } from '../utils';
 
 const Upload = () => {
   const [caption, setCaption] = useState('');
-  const [topic, setTopic] = useState('cars');
-  const [loading, setLoading] = useState(false);
-  const [fields, setFields] = useState();
-  const [savingPost, setSavingPost] = useState(false);
-  const [videoAsset, setVideoAsset] = useState();
-  const [wrongFileType, setWrongFileType] = useState(false);
+  const [topic, setTopic] = useState<String>('cars');
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [savingPost, setSavingPost] = useState<Boolean>(false);
+  const [videoAsset, setVideoAsset] = useState<
+    SanityAssetDocument | undefined
+  >();
+  const [wrongFileType, setWrongFileType] = useState<Boolean>(false);
 
-  const { userProfile } = useAuthStore();
+  const userProfile: IUser = useAuthStore((state) => state.userProfile);
   const router = useRouter();
 
-  const uploadVideo = (e) => {
+  const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0];
     // uploading asset to sanity
     if (
@@ -28,28 +29,17 @@ const Upload = () => {
       selectedFile.type === '	video/ogg'
     ) {
       setWrongFileType(false);
-      console.log(selectedFile);
       setLoading(true);
-      client.assets
-        .upload('file', selectedFile, {
-          contentType: selectedFile.type,
-          filename: selectedFile.name,
-        })
-        .then((document) => {
-          console.log(document);
-          setVideoAsset(document);
-          // console.log('The image was uploaded!', document);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log('Upload failed:', error.message);
-        });
+      const doc = await createPost(selectedFile);
+      setVideoAsset(doc);
+      setLoading(false);
     } else {
       setLoading(false);
       setWrongFileType(true);
     }
   };
-  const handlePost = () => {
+
+  const handlePost = async () => {
     if (caption && videoAsset?._id !== undefined && topic) {
       setSavingPost(true);
 
@@ -70,21 +60,13 @@ const Upload = () => {
         },
         topic,
       };
-      client.create(doc).then(() => {
-        setSavingPost(false);
-        router.push('/');
-      });
-    } else {
-      setFields(true);
-
-      setTimeout(() => {
-        setFields(false);
-      }, 2000);
+      await createPost(doc);
+      router.push('/');
     }
   };
 
   const handleDiscard = () => {
-    setVideoAsset(null);
+    setVideoAsset(undefined);
     setCaption('');
     setTopic('');
   };
@@ -130,17 +112,14 @@ const Upload = () => {
                         Up to 10 minutes <br />
                         Less than 2 GB
                       </p>
-                      <p
-                        type='button'
-                        className='bg-red-500 text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'
-                      >
+                      <p className='bg-red-500 text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'>
                         Select file
                       </p>
                     </div>
                     <input
                       type='file'
                       name='upload-video'
-                      onChange={uploadVideo}
+                      onChange={(e) => uploadVideo(e)}
                       className='w-0 h-0'
                     />
                   </label>
@@ -157,7 +136,7 @@ const Upload = () => {
                       <button
                         type='button'
                         className=' rounded-full bg-gray-200 text-red-400 p-2 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
-                        onClick={() => setVideoAsset(null)}
+                        onClick={() => setVideoAsset(undefined)}
                       >
                         <MdDelete />
                       </button>

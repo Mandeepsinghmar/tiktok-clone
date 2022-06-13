@@ -1,30 +1,29 @@
-// @ts-nocheck
-
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { GoVerified } from 'react-icons/go';
-import { BsFillCameraVideoFill } from 'react-icons/bs';
-import { AiOutlineUser } from 'react-icons/ai';
 
 import NoResults from '../../components/NoResults';
 import VideoCard from '../../components/VideoCard';
 import useUsersStore from '../../store/usersStore';
 import { fetcher, base_url } from '../../utils';
 import Link from 'next/link';
+import { SuggestedAccountsState } from '../../types';
 
 const Search = ({ videos }: any) => {
   const [isAccounts, setIsAccounts] = useState(true);
-  const { suggestedAccounts } = useUsersStore();
+  const { suggestedAccounts }: SuggestedAccountsState = useUsersStore();
+
   const router = useRouter();
   const { searchTerm } = router.query;
 
   const accounts = isAccounts ? 'border-b-2 border-black' : 'text-gray-400';
   const isVideos = !isAccounts ? 'border-b-2 border-black' : 'text-gray-400';
   const searchedAccounts = suggestedAccounts?.filter((user) =>
+    // @ts-ignore
     user.userName.toLowerCase().includes(searchTerm)
   );
-  console.log(videos);
+
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed z-50 bg-white w-full'>
@@ -43,7 +42,9 @@ const Search = ({ videos }: any) => {
       </div>
       {isAccounts ? (
         <div className='md:mt-16'>
+          {/* @ts-ignore */}
           {searchedAccounts.length > 0 ? (
+            // @ts-ignore
             searchedAccounts.map((user, idx) => (
               <Link key={idx} href={`/profile/${user._id}`}>
                 <div className=' flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'>
@@ -53,6 +54,7 @@ const Search = ({ videos }: any) => {
                       height={50}
                       className='rounded-full'
                       alt='user-profile'
+                      // @ts-ignore
                       src={user.image}
                     />
                   </div>
@@ -70,23 +72,17 @@ const Search = ({ videos }: any) => {
               </Link>
             ))
           ) : (
-            <NoResults
-              icon={<AiOutlineUser />}
-              text={`No Account Results for ${searchTerm}`}
-            />
+            <NoResults text={`No Account Results for ${searchTerm}`} />
           )}
         </div>
       ) : (
-        <div className='md:mt-16 flex flex-wrap gap-6 justify-center '>
+        <div className='md:mt-16 flex flex-wrap gap-6 justify-center md:justify-start '>
           {videos.length > 0 ? (
             videos.map((post: any, idx: number) => (
-              <VideoCard post={post} key={idx} />
+              <VideoCard post={post} key={idx} profile={undefined} />
             ))
           ) : (
-            <NoResults
-              icon={<BsFillCameraVideoFill />}
-              text={`No Video Results for ${searchTerm}`}
-            />
+            <NoResults text={`No Video Results for ${searchTerm}`} />
           )}
         </div>
       )}

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import {
@@ -8,8 +6,6 @@ import {
   userLikedPostsQuery,
 } from './../../../utils/queries';
 import { client } from '../../../utils/client';
-
-// type Data = any;
 
 export default async function handler(
   req: NextApiRequest,

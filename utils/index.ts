@@ -1,8 +1,6 @@
-// @ts-nocheck
-
 import axios from 'axios';
 
-export const fetcher = (url) => axios.get(url).then((res) => res.data);
+export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 export const base_url = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -20,4 +18,22 @@ export const responseGoogle = async (response: any, addUser: any) => {
     method: 'POST',
     body: JSON.stringify(doc),
   });
+};
+
+export const createPost = async (doc: any) => {
+  const res = await fetch(`${base_url}/api/createPost`, {
+    method: 'POST',
+    body: JSON.stringify(doc),
+  });
+  const data = await res.json();
+  return data;
+};
+
+export const uploadAsset = async (doc: any) => {
+  const res = await fetch(`${base_url}/api/uploadAsset`, {
+    method: 'POST',
+    body: JSON.stringify(doc),
+  });
+  const data = await res.json();
+  return data;
 };

@@ -2,6 +2,7 @@
 
 export const allPostsQuery = () => {
   const query = `*[_type == "post"] | order(_createdAt desc){
+    _id,
      caption,
        video{
         asset->{
@@ -9,17 +10,24 @@ export const allPostsQuery = () => {
           url
         }
       },
-   _id,
-     postedBy->{
+      userId,
+    postedBy->{
       _id,
       userName,
       image
     },
-    likes, 
-    comments,
-    userId
+ likes,
 
-  }  `;
+    comments[]{
+      comment,
+      _key,
+      postedBy->{
+      _id,
+      userName,
+      image
+    },
+    }
+  } `;
   return query;
 };
 
@@ -39,13 +47,7 @@ export const postDetailQuery = (postId) => {
       userName,
       image
     },
-   likes[]{
-      postedBy->{
-        _id,
-        userName,
-        image
-      },
-    },
+     likes,
     comments[]{
       comment,
       _key,
@@ -61,21 +63,31 @@ export const postDetailQuery = (postId) => {
 
 export const searchPostsQuery = (searchTerm) => {
   const query = `*[_type == "post" && caption match '${searchTerm}*' || topic match '${searchTerm}*'] {
-        caption,
+    _id,
+     caption,
        video{
         asset->{
           _id,
           url
         }
       },
+      userId,
     postedBy->{
       _id,
       userName,
       image
     },
-   likes,
-   _id
-          }`;
+likes,
+    comments[]{
+      comment,
+      _key,
+      postedBy->{
+      _id,
+      userName,
+      image
+    },
+    }
+  }`;
   return query;
 };
 
@@ -91,21 +103,7 @@ export const allUsersQuery = () => {
 
 export const userCreatedPostsQuery = (userId) => {
   const query = `*[ _type == 'post' && userId == '${userId}'] | order(_createdAt desc){
-  caption,
-       video{
-        asset->{
-          _id,
-          url
-        }
-      },
-      likes,
-      _id
-  }`;
-  return query;
-};
-
-export const userLikedPostsQuery = (userId) => {
-  const query = `*[_type == 'post' && '${userId}' in likes[].userId ] | order(_createdAt desc) {
+    _id,
      caption,
        video{
         asset->{
@@ -113,28 +111,85 @@ export const userLikedPostsQuery = (userId) => {
           url
         }
       },
-      likes,
-      _id
+      userId,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+ likes,
+
+    comments[]{
+      comment,
+      _key,
+      postedBy->{
+      _id,
+      userName,
+      image
+    },
+    }
   }`;
   return query;
 };
 
-export const topicPostsQuery = (topic) => {
-  const query = `*[_type == "post" && topic match '${topic}*'] {
-        caption,
+export const userLikedPostsQuery = (userId) => {
+  const query = `*[_type == 'post' && '${userId}' in likes[].userId ] | order(_createdAt desc) {
+    _id,
+     caption,
        video{
         asset->{
           _id,
           url
         }
       },
+      userId,
     postedBy->{
       _id,
       userName,
       image
     },
-   likes,
-   _id
-          }`;
+ likes,
+
+    comments[]{
+      comment,
+      _key,
+      postedBy->{
+      _id,
+      userName,
+      image
+    },
+    }
+  }`;
+  return query;
+};
+
+export const topicPostsQuery = (topic) => {
+  const query = `*[_type == "post" && topic match '${topic}*'] {
+    _id,
+     caption,
+       video{
+        asset->{
+          _id,
+          url
+        }
+      },
+      userId,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+ likes,
+
+    comments[]{
+      comment,
+      _key,
+      postedBy->{
+      _id,
+      userName,
+      image
+    },
+    }
+  }`;
   return query;
 };

@@ -3,7 +3,6 @@ export default {
   title: 'Post',
   type: 'document',
   fields: [
- 
     {
       name: 'caption',
       title: 'Caption',
@@ -32,7 +31,12 @@ export default {
       name: 'likes',
       title: 'Likes',
       type: 'array',
-      of: [{ type: 'like' }],
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'user' }],
+        },
+      ],
     },
     {
       name: 'comments',

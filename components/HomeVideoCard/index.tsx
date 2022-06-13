@@ -1,7 +1,7 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
@@ -73,13 +73,14 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
         <div
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
+          className='rounded-3xl'
         >
           <Link href={`/detail/${_id}`}>
             <video
               loop
               ref={videoRef}
               src={video.asset.url}
-              className='w-[295px] h-[340px] lg:h-[528px] rounded-xl cursor-pointer'
+              className='lg:w-[295px] h-[300px] md:h-[340px] lg:h-[528px] rounded-2xl cursor-pointer'
             ></video>
           </Link>
 
@@ -109,11 +110,11 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
         <Link href={`/detail/${_id}`}>
           <div className='self-end mr-2'>
             <VideoSidebar
-              id={_id}
-              likes={likes}
-              comments={comments}
-              flex=''
+              likes={videoData.likes}
+              comments={videoData.comments}
+              flex='flex'
               handleLike={() => {}}
+              handleDislike={() => {}}
             />
           </div>
         </Link>

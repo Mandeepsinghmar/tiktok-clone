@@ -1,8 +1,7 @@
-import { base_url, fetcher } from './../utils/index';
-// @ts-nocheck
-
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
+
+import { base_url, fetcher } from './../utils/index';
 
 const useUsersStore = create(
   devtools((set) => ({
