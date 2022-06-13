@@ -24,29 +24,8 @@ export const responseGoogle = async (response: any, addUser: any) => {
 export const createPost = async (doc: any) => {
   const res = await fetch(`${base_url}/api/createPost`, {
     method: 'POST',
-    body: doc,
+    body: JSON.stringify(doc),
   });
   const data = await res.json();
   return data;
 };
-
-export const uploadAsset = async (selectedFile: any) => {
-  console.log(selectedFile);
-  let doc = new FormData();
-  doc.append('file', selectedFile);
-  const res = await fetch(`${base_url}/api/uploadAsset`, {
-    method: 'POST',
-    body: doc,
-    headers: { 'content-type': 'multipart/form-data' },
-  });
-  console.log(doc);
-  const data = await res.json();
-  return data;
-};
-
-export const client = sanityClient({
-  projectId: 'kr4jrn0q',
-  dataset: 'production',
-  apiVersion: '2022-03-10',
-  useCdn: true,
-});

@@ -7,15 +7,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'POST') {
-    const file = req.body;
-    console.log(file);
-    const data = await client.assets.upload('file', file, {
-      contentType: file.type,
-      filename: file.name,
+    const doc = JSON.parse(req.body);
+
+    client.create(doc).then(() => {
+      res.status(200).json('video created');
     });
-    console.log(data);
-    // client.create(data).then(() => {
-    // res.status(200).json('video created');
-    // });
   }
 }

@@ -5,7 +5,7 @@ import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
-import { createPost, uploadAsset } from '../utils';
+import { createPost } from '../utils';
 import { client } from '../utils/client';
 
 const Upload = () => {
@@ -31,9 +31,16 @@ const Upload = () => {
     ) {
       setWrongFileType(false);
       setLoading(true);
-      const doc = await uploadAsset(selectedFile);
-      setVideoAsset(doc);
-      setLoading(false);
+
+      client.assets
+        .upload('file', selectedFile, {
+          contentType: selectedFile.type,
+          filename: selectedFile.name,
+        })
+        .then((data) => {
+          setVideoAsset(data);
+          setLoading(false);
+        });
     } else {
       setLoading(false);
       setWrongFileType(true);
@@ -68,6 +75,7 @@ const Upload = () => {
   };
 
   const handleDiscard = () => {
+    setSavingPost(false);
     setVideoAsset(undefined);
     setCaption('');
     setTopic('');
