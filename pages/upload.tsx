@@ -1,11 +1,12 @@
+import React, { useState } from 'react';
 import { SanityAssetDocument } from '@sanity/client';
 import { useRouter } from 'next/router';
-import React, { FormEvent, useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
-import { createPost } from '../utils';
+import { createPost, uploadAsset } from '../utils';
+import { client } from '../utils/client';
 
 const Upload = () => {
   const [caption, setCaption] = useState('');
@@ -30,7 +31,7 @@ const Upload = () => {
     ) {
       setWrongFileType(false);
       setLoading(true);
-      const doc = await createPost(selectedFile);
+      const doc = await uploadAsset(selectedFile);
       setVideoAsset(doc);
       setLoading(false);
     } else {
@@ -60,6 +61,7 @@ const Upload = () => {
         },
         topic,
       };
+
       await createPost(doc);
       router.push('/');
     }
@@ -147,7 +149,7 @@ const Upload = () => {
             )}
           </div>
         </div>
-        <div className='flex flex-col gap-3 lg:mt-28 pb-10'>
+        <div className='flex flex-col gap-3 mt-20 pb-10'>
           <label className='text-md font-medium '>Caption</label>
           <input
             type='text'

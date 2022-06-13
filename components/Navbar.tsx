@@ -62,7 +62,7 @@ const Navbar = () => {
       </div>
       <div>
         {user ? (
-          <div className='flex gap-10'>
+          <div className='flex gap-5 md:gap-10'>
             <Link href='/upload'>
               <button className='border-2 px-2 md:px-4 text-md font-semibold flex items-center gap-2'>
                 <IoMdAdd className='text-xl' />{' '}

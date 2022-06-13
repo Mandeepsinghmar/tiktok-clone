@@ -112,7 +112,7 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
             <VideoSidebar
               likes={videoData.likes}
               comments={videoData.comments}
-              flex='flex'
+              flex=''
               handleLike={() => {}}
               handleDislike={() => {}}
             />

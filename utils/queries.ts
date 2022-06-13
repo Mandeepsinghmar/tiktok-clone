@@ -52,9 +52,8 @@ export const postDetailQuery = (postId) => {
       comment,
       _key,
       postedBy->{
+        _ref,
       _id,
-      userName,
-      image
     },
     }
   }`;

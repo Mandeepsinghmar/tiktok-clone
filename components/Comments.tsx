@@ -18,7 +18,7 @@ interface IComment {
   comment: string;
   length?: number;
   _key: string;
-  postedBy: { _ref: string };
+  postedBy: { _ref?: string; _id?: string };
 }
 
 const Comments = ({ comment, setComment, addComment, comments }: IProps) => {
@@ -32,7 +32,7 @@ const Comments = ({ comment, setComment, addComment, comments }: IProps) => {
             <>
               {suggestedAccounts?.map(
                 (user: IUser) =>
-                  user._id === item.postedBy._ref && (
+                  user._id === (item.postedBy._ref || item.postedBy._id) && (
                     <div className='flex gap-3 p-2' key={idx}>
                       <Link href={`/profile/${user._id}`}>
                         <Image
@@ -70,7 +70,7 @@ const Comments = ({ comment, setComment, addComment, comments }: IProps) => {
             value={comment}
             // @ts-ignore
             onChange={(e) => setComment(e.target.value)}
-            className='bg-primary px-6 py-4 text-md font-medium border-2 w-[330px] md:w-[700px] lg:w-[350px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
+            className='bg-primary px-6 py-4 text-md font-medium border-2 w-[250px] md:w-[700px] lg:w-[350px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
             placeholder='Add comment..'
           />
           <button className='text-md text-gray-400 ' onClick={addComment}>
