@@ -160,10 +160,10 @@ const Detail = ({ postDetails }: IProps) => {
                     src={post.postedBy.image}
                   />
                   <div>
-                    <p className='text-xl font-bold lowercase tracking-wider flex gap-2 items=center'>
+                    <div className='text-xl font-bold lowercase tracking-wider flex gap-2 items-center justify-center'>
                       {post.postedBy.userName.replace(/\s+/g, '')}{' '}
                       <GoVerified className='text-blue-400 text-xl' />
-                    </p>
+                    </div>
                     <p className='text-md'> {post.postedBy.userName}</p>
                   </div>
                 </div>
