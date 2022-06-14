@@ -47,7 +47,7 @@ const Detail = ({ postDetails }: IProps) => {
 
   const handleLike = async () => {
     if (userProfile) {
-      const res = await fetch('http://localhost:3000/api/like', {
+      const res = await fetch(`${base_url}/api/like`, {
         method: 'PUT',
         body: JSON.stringify({
           // @ts-ignore
@@ -64,7 +64,7 @@ const Detail = ({ postDetails }: IProps) => {
 
   const handleDislike = async () => {
     if (userProfile) {
-      const res = await fetch('http://localhost:3000/api/dislike', {
+      const res = await fetch(`${base_url}/api/dislike`, {
         method: 'PUT',
         body: JSON.stringify({
           // @ts-ignore
