@@ -3,13 +3,15 @@ import { devtools, persist } from 'zustand/middleware';
 import { IUser } from '../types';
 
 const authStore = (set: (arg0: { userProfile: IUser }) => any) => ({
-  userProfile: {},
+  userProfile: null,
   addUser: (user: any) => set({ userProfile: user }),
-  removeUser: () => set({ userProfile: {} }),
+  // @ts-ignore
+  removeUser: () => set({ userProfile: null }),
 });
 
 const useAuthStore = create(
   devtools(
+    // @ts-ignore
     persist(authStore, {
       name: 'auth',
     })

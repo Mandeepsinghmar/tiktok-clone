@@ -12,6 +12,7 @@ import { fetcher, base_url } from '../../utils';
 import LikeComment from '../../components/LikeComment';
 import useAuthStore from '../../store/authStore';
 import { IUser, Video } from '../../types';
+import toast from 'react-hot-toast';
 
 interface IProps {
   postDetails: Video;
@@ -45,33 +46,52 @@ const Detail = ({ postDetails }: IProps) => {
   }, [post, videoMuted]);
 
   const handleLike = async () => {
-    const res = await fetch('http://localhost:3000/api/like', {
-      method: 'PUT',
-      body: JSON.stringify({ userId: userProfile.googleId, postId: post._id }),
-    });
-    const data = await res.json();
-    setPost({ ...post, likes: data.likes });
+    if (userProfile) {
+      const res = await fetch('http://localhost:3000/api/like', {
+        method: 'PUT',
+        body: JSON.stringify({
+          userId: userProfile.googleId,
+          postId: post._id,
+        }),
+      });
+      const data = await res.json();
+      setPost({ ...post, likes: data.likes });
+    } else {
+      toast.error(' Please Log in to like and comment on videos.');
+    }
   };
 
   const handleDislike = async () => {
-    const res = await fetch('http://localhost:3000/api/dislike', {
-      method: 'PUT',
-      body: JSON.stringify({ userId: userProfile.googleId, postId: post._id }),
-    });
-    const data = await res.json();
-    setPost({ ...post, likes: data.likes });
+    if (userProfile) {
+      const res = await fetch('http://localhost:3000/api/dislike', {
+        method: 'PUT',
+        body: JSON.stringify({
+          userId: userProfile.googleId,
+          postId: post._id,
+        }),
+      });
+      const data = await res.json();
+      setPost({ ...post, likes: data.likes });
+    } else {
+      toast.error(' Please Log in to like and comment on videos.');
+    }
   };
 
   const addComment = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (comment) {
-      const res = await fetch(`${base_url}/api/post/${post._id}`, {
-        method: 'PUT',
-        body: JSON.stringify({ userId: userProfile.googleId, comment }),
-      });
-      const data = await res.json();
-      setComment('');
-      setPost({ ...post, comments: data.comments });
+
+    if (userProfile) {
+      if (comment) {
+        const res = await fetch(`${base_url}/api/post/${post._id}`, {
+          method: 'PUT',
+          body: JSON.stringify({ userId: userProfile.googleId, comment }),
+        });
+        const data = await res.json();
+        setComment('');
+        setPost({ ...post, comments: data.comments });
+      }
+    } else {
+      toast.error(' Please Log in to like and comment on videos.');
     }
   };
 

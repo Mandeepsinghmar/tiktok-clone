@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SanityAssetDocument } from '@sanity/client';
 import { useRouter } from 'next/router';
 import { FaCloudUploadAlt } from 'react-icons/fa';
@@ -20,6 +20,12 @@ const Upload = () => {
 
   const userProfile: IUser = useAuthStore((state) => state.userProfile);
   const router = useRouter();
+
+  useEffect(() => {
+    if (!userProfile) {
+      router.push('/');
+    }
+  }, []);
 
   const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0];
@@ -92,15 +98,9 @@ const Upload = () => {
             </p>
           </div>
           <div className=' border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center  outline-none mt-10 w-[260px] h-[458px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
-            {wrongFileType && (
-              <p className='text-center text-3xl text-red-400 font-semibold'>
-                Please select an video file (mp4 or webm or ogg)
-              </p>
-            )}
-
             {loading ? (
               <p className='text-center text-3xl text-red-400 font-semibold'>
-                Upoading...
+                Uploading...
               </p>
             ) : (
               <div>
@@ -156,8 +156,13 @@ const Upload = () => {
               </div>
             )}
           </div>
+          {wrongFileType && (
+            <p className='text-center text-xl text-red-400 font-semibold mt-4 w-[260px]'>
+              Please select an video file (mp4 or webm or ogg)
+            </p>
+          )}
         </div>
-        <div className='flex flex-col gap-3 mt-20 pb-10'>
+        <div className='flex flex-col gap-3 pb-10'>
           <label className='text-md font-medium '>Caption</label>
           <input
             type='text'

@@ -26,6 +26,7 @@ const Navbar = () => {
     e.preventDefault();
     router.push(`/search/${searchValue}`);
   };
+  console.log(user ? 'user hai' : 'user nahi hai');
   return (
     <div className='w-full flex justify-between items-center border-b-2 border-gray-200 py-2 px-4'>
       <Link href='/'>
@@ -69,16 +70,18 @@ const Navbar = () => {
                 <span className='hidden md:block'>Upload </span>
               </button>
             </Link>
-            <Link href={`/profile/${user?.googleId}`}>
-              <Image
-                className='rounded-full cursor-pointer'
-                //  @ts-ignore
-                src={user.imageUrl}
-                alt='user'
-                width={40}
-                height={40}
-              />
-            </Link>
+            {user?.imageUrl && (
+              <Link href={`/profile/${user?.googleId}`}>
+                <Image
+                  className='rounded-full cursor-pointer'
+                  //  @ts-ignore
+                  src={user.imageUrl}
+                  alt='user'
+                  width={40}
+                  height={40}
+                />
+              </Link>
+            )}
             <GoogleLogout
               clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
               render={(renderProps) => (
@@ -92,6 +95,8 @@ const Navbar = () => {
                 </button>
               )}
               onLogoutSuccess={() => removeUser()}
+              // @ts-ignore
+              cookiePolicy='single_host_origin'
             />
           </div>
         ) : (

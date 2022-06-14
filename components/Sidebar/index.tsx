@@ -43,10 +43,8 @@ const Sidebar: NextPage = () => {
       </div>
       {!userProfile && (
         <div className='px-2 py-4 hidden xl:block'>
-          <p className='text-gray-400'>
-            Log in to follow creators, like videos, and view comments.
-          </p>
-          <div className='px-4'>
+          <p className='text-gray-400'>Log in to like and comment on videos.</p>
+          <div className='pr-4'>
             <GoogleLogin
               clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
               render={(renderProps) => (

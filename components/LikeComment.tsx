@@ -24,7 +24,7 @@ const LikeComment: NextPage<IProps> = ({
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const { userProfile }: any = useAuthStore();
   let filterLikes = likes?.filter(
-    (item: any) => item._ref === userProfile.googleId
+    (item: any) => item._ref === userProfile?.googleId
   );
 
   useEffect(() => {
