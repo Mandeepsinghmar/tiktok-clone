@@ -12,7 +12,7 @@ import { IUser } from '../types';
 import { responseGoogle } from '../utils';
 
 const Navbar = () => {
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 

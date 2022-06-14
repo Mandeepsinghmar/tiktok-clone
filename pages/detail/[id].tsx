@@ -6,13 +6,13 @@ import Link from 'next/link';
 import { MdOutlineCancel } from 'react-icons/md';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 import Comments from '../../components/Comments';
 import { fetcher, base_url } from '../../utils';
 import LikeComment from '../../components/LikeComment';
 import useAuthStore from '../../store/authStore';
 import { IUser, Video } from '../../types';
-import toast from 'react-hot-toast';
 
 interface IProps {
   postDetails: Video;
@@ -27,7 +27,7 @@ const Detail = ({ postDetails }: IProps) => {
   const videoRef = useRef<any>();
   const router = useRouter();
 
-  const { userProfile }: { userProfile: IUser } = useAuthStore();
+  const { userProfile }: { userProfile: IUser | null } = useAuthStore();
 
   const onVideoClick = () => {
     if (playing) {
@@ -50,6 +50,7 @@ const Detail = ({ postDetails }: IProps) => {
       const res = await fetch('http://localhost:3000/api/like', {
         method: 'PUT',
         body: JSON.stringify({
+          // @ts-ignore
           userId: userProfile.googleId,
           postId: post._id,
         }),
@@ -66,6 +67,7 @@ const Detail = ({ postDetails }: IProps) => {
       const res = await fetch('http://localhost:3000/api/dislike', {
         method: 'PUT',
         body: JSON.stringify({
+          // @ts-ignore
           userId: userProfile.googleId,
           postId: post._id,
         }),
@@ -84,6 +86,7 @@ const Detail = ({ postDetails }: IProps) => {
       if (comment) {
         const res = await fetch(`${base_url}/api/post/${post._id}`, {
           method: 'PUT',
+          // @ts-ignore
           body: JSON.stringify({ userId: userProfile.googleId, comment }),
         });
         const data = await res.json();

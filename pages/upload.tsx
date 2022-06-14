@@ -18,14 +18,14 @@ const Upload = () => {
   >();
   const [wrongFileType, setWrongFileType] = useState<Boolean>(false);
 
-  const userProfile: IUser = useAuthStore((state) => state.userProfile);
+  const userProfile: IUser | null = useAuthStore((state) => state.userProfile);
   const router = useRouter();
 
   useEffect(() => {
     if (!userProfile) {
       router.push('/');
     }
-  }, []);
+  }, [userProfile, router]);
 
   const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0];
@@ -67,10 +67,12 @@ const Upload = () => {
             _ref: videoAsset?._id,
           },
         },
-        userId: userProfile.googleId,
+        // @ts-ignore
+        userId: userProfile?.googleId,
         postedBy: {
           _type: 'postedBy',
-          _ref: userProfile.googleId,
+          // @ts-ignore
+          _ref: userProfile?.googleId,
         },
         topic,
       };
