@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { MdFavorite } from 'react-icons/md';
+import { MdFavorite, MdOutlineContentCopy } from 'react-icons/md';
+import { NextPage } from 'next';
 import { AiFillMessage } from 'react-icons/ai';
-import { FaShare } from 'react-icons/fa';
+import copy from 'copy-to-clipboard';
 
 import useAuthStore from '../store/authStore';
-import { NextPage } from 'next';
+import { base_url } from '../utils';
+import toast from 'react-hot-toast';
 
 interface IProps {
+  id?: string;
   likes: any;
   comments: any;
   flex: string;
@@ -20,6 +23,7 @@ const LikeComment: NextPage<IProps> = ({
   flex,
   handleLike,
   handleDislike,
+  id,
 }) => {
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const { userProfile }: any = useAuthStore();
@@ -62,9 +66,15 @@ const LikeComment: NextPage<IProps> = ({
         </div>
         <p className='text-md font-semibold '>{comments?.length || 0}</p>
       </div>
-      <div className='mt-4 flex flex-col justify-center items-center'>
-        <div className='bg-primary rounded-full p-2 md:p-4'>
-          <FaShare className='text-lg md:text-2xl' />
+      <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
+        <div
+          className='bg-primary rounded-full p-2 md:p-4'
+          onClick={() => {
+            copy(`${base_url}/detail/${id}`);
+            toast.success('Video Link Copied!');
+          }}
+        >
+          <MdOutlineContentCopy className='text-lg md:text-2xl' />
         </div>
         <p className='text-md font-semibold '>{comments?.length || 0}</p>
       </div>

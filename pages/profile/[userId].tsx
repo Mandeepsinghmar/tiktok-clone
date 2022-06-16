@@ -60,10 +60,8 @@ const Profile = ({ data }: IProps) => {
       </div>
       <div>
         <p className=' text-md text-gray-600'>
-          🔑 Entrepreneur <br />
-          🔮 Investor in Uber, Snap, Venmo, Twitter ✈️
-          <br />
-          CEO of VaynerMedia
+          🔑 Hi I'm {user.userName} <br />
+          🔮 frontend web developer.
         </p>
       </div>
       <div>
@@ -81,7 +79,7 @@ const Profile = ({ data }: IProps) => {
             Liked
           </p>
         </div>
-        <div className='flex gap-6 flex-wrap justify-center md:justify-start'>
+        <div className='flex gap-6 flex-wrap md:justify-start'>
           {videosList.length > 0 ? (
             videosList.map((post: any, idx: number) => (
               <VideoCard key={idx} post={post} profile />

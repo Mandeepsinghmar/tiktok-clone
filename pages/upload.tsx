@@ -5,7 +5,7 @@ import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
-import { createPost } from '../utils';
+import { base_url } from '../utils';
 import { client } from '../utils/client';
 
 const Upload = () => {
@@ -77,7 +77,11 @@ const Upload = () => {
         topic,
       };
 
-      await createPost(doc);
+      await fetch(`${base_url}/api/createPost`, {
+        method: 'POST',
+        body: JSON.stringify(doc),
+      });
+
       router.push('/');
     }
   };

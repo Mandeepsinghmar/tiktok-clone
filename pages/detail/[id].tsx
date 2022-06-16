@@ -20,9 +20,10 @@ interface IProps {
 
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
-  const [playing, setPlaying] = useState(false);
-  const [videoMuted, setVideoMuted] = useState(false);
+  const [playing, setPlaying] = useState<Boolean>(false);
+  const [videoMuted, setVideoMuted] = useState<Boolean>(false);
   const [comment, setComment] = useState<string>('');
+  const [isPostingComment, setIsPostingComment] = useState<Boolean>(false);
 
   const videoRef = useRef<any>();
   const router = useRouter();
@@ -84,14 +85,17 @@ const Detail = ({ postDetails }: IProps) => {
 
     if (userProfile) {
       if (comment) {
+        setIsPostingComment(true);
         const res = await fetch(`${base_url}/api/post/${post._id}`, {
           method: 'PUT',
           // @ts-ignore
           body: JSON.stringify({ userId: userProfile.googleId, comment }),
         });
         const data = await res.json();
-        setComment('');
+
         setPost({ ...post, comments: data.comments });
+        setComment('');
+        setIsPostingComment(false);
       }
     } else {
       toast.error(' Please Log in to like and comment on videos.');
@@ -102,7 +106,7 @@ const Detail = ({ postDetails }: IProps) => {
     <>
       {post && (
         <div className='flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
-          <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover'>
+          <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-blurred-img bg-no-repeat bg-cover bg-center'>
             <div className='opacity-90 absolute top-6 left-2 lg:left-6 flex gap-6 z-50'>
               <p className='cursor-pointer ' onClick={() => router.back()}>
                 <MdOutlineCancel className='text-white text-[35px] hover:opacity-90' />
@@ -173,6 +177,7 @@ const Detail = ({ postDetails }: IProps) => {
               </div>
               <div className='mt-10 px-10'>
                 <LikeComment
+                  id={post._id}
                   likes={post.likes}
                   comments={post.comments}
                   flex='flex'
@@ -185,6 +190,7 @@ const Detail = ({ postDetails }: IProps) => {
                 setComment={setComment}
                 addComment={addComment}
                 comments={post.comments}
+                isPostingComment={isPostingComment}
               />
             </div>
           </div>

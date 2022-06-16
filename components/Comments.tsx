@@ -8,6 +8,7 @@ import NoResults from './NoResults';
 import { IUser, SuggestedAccountsState } from '../types';
 
 interface IProps {
+  isPostingComment: Boolean;
   comment: string;
   setComment: Dispatch<SetStateAction<string>>;
   addComment: (e: any) => void;
@@ -21,7 +22,13 @@ interface IComment {
   postedBy: { _ref?: string; _id?: string };
 }
 
-const Comments = ({ comment, setComment, addComment, comments }: IProps) => {
+const Comments = ({
+  comment,
+  setComment,
+  addComment,
+  comments,
+  isPostingComment,
+}: IProps) => {
   const { suggestedAccounts }: SuggestedAccountsState = useUsersStore();
 
   return (
@@ -33,27 +40,31 @@ const Comments = ({ comment, setComment, addComment, comments }: IProps) => {
               {suggestedAccounts?.map(
                 (user: IUser) =>
                   user._id === (item.postedBy._ref || item.postedBy._id) && (
-                    <div className='flex gap-3 p-2' key={idx}>
+                    <div className=' p-2 items-center' key={idx}>
                       <Link href={`/profile/${user._id}`}>
-                        <Image
-                          width={60}
-                          height={60}
-                          className='rounded-full cursor-pointer'
-                          // @ts-ignore
-                          src={user.image}
-                          alt='user-profile'
-                        />
+                        <div className='flex items-start gap-3'>
+                          <div className='w-12 h-12'>
+                            <Image
+                              width={48}
+                              height={48}
+                              className='rounded-full cursor-pointer'
+                              // @ts-ignore
+                              src={user.image}
+                              alt='user-profile'
+                              layout='responsive'
+                            />
+                          </div>
+
+                          <p className='flex cursor-pointer gap-1 items-center text-[18px] font-bold leading-6 text-primary'>
+                            {user.userName}{' '}
+                            <GoVerified className='text-blue-400' />
+                          </p>
+                        </div>
                       </Link>
                       <div>
-                        <div className='flex items-center gap-1'>
-                          <Link href={`/profile/${user._id}`}>
-                            <p className='flex cursor-pointer gap-1 items-center text-[18px] font-bold leading-6 text-primary'>
-                              {user.userName}{' '}
-                              <GoVerified className='text-blue-400' />
-                            </p>
-                          </Link>
-                        </div>
-                        <p className='mt-2 text-[16px'>{item.comment}</p>
+                        <p className='-mt-5 ml-16 text-[16px] mr-8'>
+                          {item.comment}
+                        </p>
                       </div>
                     </div>
                   )
@@ -69,12 +80,12 @@ const Comments = ({ comment, setComment, addComment, comments }: IProps) => {
           <input
             value={comment}
             // @ts-ignore
-            onChange={(e) => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value.trim())}
             className='bg-primary px-6 py-4 text-md font-medium border-2 w-[250px] md:w-[700px] lg:w-[350px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
             placeholder='Add comment..'
           />
           <button className='text-md text-gray-400 ' onClick={addComment}>
-            Post
+            {isPostingComment ? 'Commenting...' : 'Comment'}
           </button>
         </form>
       </div>

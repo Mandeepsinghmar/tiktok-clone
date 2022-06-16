@@ -20,7 +20,8 @@ const VideoCard = ({ post, profile }) => {
         <>
           <div className='flex gap-2 -mt-8 items-center ml-4'>
             <p className='text-white text-lg font-medium flex gap-1 items-center'>
-              <BsPlay className='text-2xl' /> 9705
+              <BsPlay className='text-2xl' />
+              {post?.likes?.length || 0}
             </p>
           </div>
         </>
@@ -41,7 +42,7 @@ const VideoCard = ({ post, profile }) => {
         </Link>
       )}
       <Link href={`/detail/${post._id}`}>
-        <p className='mt-5 text-md text-gray-800 cursor-pointer'>
+        <p className='mt-5 text-md text-gray-800 cursor-pointer w-210'>
           {post.caption}
         </p>
       </Link>

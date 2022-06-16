@@ -80,7 +80,7 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
               loop
               ref={videoRef}
               src={video.asset.url}
-              className='lg:w-[295px] h-[300px] md:h-[340px] lg:h-[528px] rounded-2xl cursor-pointer'
+              className='lg:w-[295px] h-[300px] md:h-[340px] lg:h-[528px] rounded-2xl cursor-pointer bg-gray-100'
             ></video>
           </Link>
 
@@ -110,6 +110,7 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
         <Link href={`/detail/${_id}`}>
           <div className='self-end mr-2'>
             <VideoSidebar
+              id={videoData._id}
               likes={likes}
               comments={comments}
               flex=''

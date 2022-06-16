@@ -76,7 +76,7 @@ const Search = ({ videos }: any) => {
           )}
         </div>
       ) : (
-        <div className='md:mt-16 flex flex-wrap gap-6 justify-center md:justify-start '>
+        <div className='md:mt-16 flex flex-wrap gap-6 md:justify-start '>
           {videos.length > 0 ? (
             videos.map((post: any, idx: number) => (
               <VideoCard post={post} key={idx} profile={undefined} />
