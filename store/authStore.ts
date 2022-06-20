@@ -1,4 +1,5 @@
 import create from 'zustand';
+// TODO: Why are we using zustand? Can this be done using React Context?
 import { devtools, persist } from 'zustand/middleware';
 import { IUser } from '../types';
 

@@ -1,3 +1,4 @@
+// TODO: why are there three components inside of a Sidebar folder?
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';

@@ -7,8 +7,10 @@ import NoResults from '../../components/NoResults';
 import VideoCard from '../../components/VideoCard';
 import useUsersStore from '../../store/usersStore';
 import { fetcher, base_url } from '../../utils';
-import Link from 'next/link';
 import { SuggestedAccountsState } from '../../types';
+import Link from 'next/link';
+
+// TODO: REMOVE ALL INSTANCES OF @TS-IGNORE IN ALL FILES. We should try to find proper TypeScript solutions and properly setup the types so we don't have to ignore anything
 
 const Search = ({ videos }: any) => {
   const [isAccounts, setIsAccounts] = useState(true);
@@ -27,16 +29,10 @@ const Search = ({ videos }: any) => {
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed z-50 bg-white w-full'>
-        <p
-          onClick={() => setIsAccounts(true)}
-          className={`text-xl  font-semibold cursor-pointer ${accounts} mt-2`}
-        >
+        <p onClick={() => setIsAccounts(true)} className={`text-xl  font-semibold cursor-pointer ${accounts} mt-2`} >
           Accounts
         </p>
-        <p
-          className={`text-xl font-semibold cursor-pointer ${isVideos} mt-2`}
-          onClick={() => setIsAccounts(false)}
-        >
+        <p className={`text-xl font-semibold cursor-pointer ${isVideos} mt-2`} onClick={() => setIsAccounts(false)} >
           Videos
         </p>
       </div>
@@ -92,8 +88,10 @@ const Search = ({ videos }: any) => {
 
 export const getServerSideProps = async ({ params: { searchTerm } }: any) => {
   const videos = await fetcher(`${base_url}/api/search/${searchTerm}`);
+
   return {
     props: { videos },
   };
 };
+
 export default Search;

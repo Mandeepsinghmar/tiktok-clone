@@ -1,5 +1,7 @@
 // @ts-nocheck
 
+// TODO: Add a comment displaying a link to where these queries can be generated.
+
 export const allPostsQuery = () => {
   const query = `*[_type == "post"] | order(_createdAt desc){
     _id,
@@ -11,13 +13,12 @@ export const allPostsQuery = () => {
         }
       },
       userId,
-    postedBy->{
-      _id,
-      userName,
-      image
-    },
- likes,
-
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    likes,
     comments[]{
       comment,
       _key,
@@ -28,6 +29,7 @@ export const allPostsQuery = () => {
     },
     }
   } `;
+  
   return query;
 };
 
@@ -92,11 +94,13 @@ likes,
 
 export const singleUserQuery = (userId) => {
   const query = `*[_type == "user" && _id == '${userId}']`;
+
   return query;
 };
 
 export const allUsersQuery = () => {
   const query = `*[_type == "user"]`;
+
   return query;
 };
 
@@ -128,6 +132,7 @@ export const userCreatedPostsQuery = (userId) => {
     },
     }
   }`;
+
   return query;
 };
 
@@ -159,6 +164,7 @@ export const userLikedPostsQuery = (userId) => {
     },
     }
   }`;
+
   return query;
 };
 
@@ -190,5 +196,6 @@ export const topicPostsQuery = (topic) => {
     },
     }
   }`;
+
   return query;
 };

@@ -1,3 +1,4 @@
+// TODO: Why is this file in a folder?
 import React, { useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
@@ -13,13 +14,11 @@ interface IProps {
   videoData: Video;
 }
 
-const VideoCard: NextPage<IProps> = ({ videoData }) => {
+const VideoCard: NextPage<IProps> = ({ videoData: { caption, postedBy, video, likes, comments, _id } }) => {
   const [playing, setPlaying] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const { caption, postedBy, video, likes, comments, _id } = videoData;
 
   const onVideoPress = () => {
     if (playing) {
@@ -35,7 +34,7 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
   }, [videoMuted]);
 
   return (
-    <div className=' flex flex-col border-b-2 border-gray-200 pb-6'>
+    <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
         <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded '>
           <div className='md:w-16 md:h-16 w-10 h-10'>
@@ -110,7 +109,7 @@ const VideoCard: NextPage<IProps> = ({ videoData }) => {
         <Link href={`/detail/${_id}`}>
           <div className='self-end mr-2'>
             <VideoSidebar
-              id={videoData._id}
+              id={_id}
               likes={likes}
               comments={comments}
               flex=''

@@ -16,6 +16,7 @@ interface IProps {
 }
 
 const Profile = ({ data }: IProps) => {
+  // TODO: use more meaningful variable names -> isVideoSectionActive
   const [isVideos, setIsVideos] = useState(true);
   const [videosList, setVideosList] = useState<Video[]>([]);
 
@@ -31,6 +32,7 @@ const Profile = ({ data }: IProps) => {
         setVideosList(userLikedVideos);
       }
     };
+
     fetchVideos();
   }, [isVideos, userLikedVideos, userVideos]);
 
@@ -93,12 +95,9 @@ const Profile = ({ data }: IProps) => {
   );
 };
 
-export const getServerSideProps = async ({
-  params: { userId },
-}: {
-  params: { userId: string };
-}) => {
+export const getServerSideProps = async ({ params: { userId }}: { params: { userId: string } }) => {
   const data = await fetcher(`${base_url}/api/profile/${userId}`);
+  
   return {
     props: { data },
   };

@@ -1,3 +1,4 @@
+// TODO: Remove all unused imports : useState
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -9,6 +10,8 @@ import { useRouter } from 'next/router';
 const Discover: NextPage = () => {
   const router = useRouter();
   const { topic } = router.query;
+
+  // TODO: Put this in another file so that we can simply import it.
   const topics = [
     {
       name: 'comedy',

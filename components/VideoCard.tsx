@@ -1,3 +1,4 @@
+// TODO: Remove these from all files and fix the types
 // @ts-nocheck
 
 import React from 'react';

@@ -52,8 +52,10 @@ const Discover = ({ videos }: IProps) => {
 
 export const getServerSideProps = async ({ params: { topic } }: any) => {
   const videos = await fetcher(`${base_url}/api/discover/${topic}`);
+
   return {
     props: { videos },
   };
 };
+
 export default Discover;

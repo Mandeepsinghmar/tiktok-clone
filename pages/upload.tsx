@@ -3,6 +3,7 @@ import { SanityAssetDocument } from '@sanity/client';
 import { useRouter } from 'next/router';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+// TODO: divide external from internal imports
 import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
 import { base_url } from '../utils';
@@ -11,10 +12,11 @@ import { client } from '../utils/client';
 const Upload = () => {
   const [caption, setCaption] = useState('');
   const [topic, setTopic] = useState<String>('cars');
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(false); 
   const [savingPost, setSavingPost] = useState<Boolean>(false);
+  // TODO: Put the code in one line
   const [videoAsset, setVideoAsset] = useState<
-    SanityAssetDocument | undefined
+  SanityAssetDocument | undefined
   >();
   const [wrongFileType, setWrongFileType] = useState<Boolean>(false);
 
@@ -22,6 +24,7 @@ const Upload = () => {
   const router = useRouter();
 
   useEffect(() => {
+    // TODO: For simple if statements, you can remove the {} and put it in one line
     if (!userProfile) {
       router.push('/');
     }
@@ -29,12 +32,15 @@ const Upload = () => {
 
   const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0];
+    const fileTypes = ['video/mp4', 'video/webm', 'video/ogg'];
     // uploading asset to sanity
-    if (
-      selectedFile.type === 'video/mp4' ||
-      selectedFile.type === 'video/webm' ||
-      selectedFile.type === '	video/ogg'
-    ) {
+    // if (
+    //   selectedFile.type === 'video/mp4' ||
+    //   selectedFile.type === 'video/webm' ||
+    //   selectedFile.type === 'video/ogg'
+    // ) {
+    // TODO: below is a cleaner solution of the above if statement, right?
+    if (fileTypes.includes(selectedFile.type)) {
       setWrongFileType(false);
       setLoading(true);
 
@@ -54,6 +60,7 @@ const Upload = () => {
   };
 
   const handlePost = async () => {
+    // TODO: videoAsset?._id !== undefined is the same as videoAsset?.id, no need for !== undefined
     if (caption && videoAsset?._id !== undefined && topic) {
       setSavingPost(true);
 
@@ -67,16 +74,20 @@ const Upload = () => {
             _ref: videoAsset?._id,
           },
         },
+        // TODO: I don't think using ts-ignore is a good practice here, try solving this using TypeScript in a propery way.
         // @ts-ignore
         userId: userProfile?.googleId,
         postedBy: {
           _type: 'postedBy',
+          // TODO: Same thing here
           // @ts-ignore
           _ref: userProfile?.googleId,
         },
         topic,
       };
 
+      // TODO: why stringify?
+      // TODO: use axios
       await fetch(`${base_url}/api/createPost`, {
         method: 'POST',
         body: JSON.stringify(doc),
@@ -184,15 +195,7 @@ const Upload = () => {
             }}
             className='outline-none lg:w-650 border-2 border-gray-200 text-md capitalize lg:p-4 p-2 rounded cursor-pointer'
           >
-            {[
-              'comedy',
-              'gaming',
-              'food',
-              'dance',
-              'beauty',
-              'sports',
-              'animals',
-            ].map((item) => (
+            {['comedy','gaming','food','dance','beauty','sports','animals'].map((item) => (
               <option
                 key={item}
                 className=' outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300'
@@ -203,11 +206,7 @@ const Upload = () => {
             ))}
           </select>
           <div className='flex gap-6 mt-10'>
-            <button
-              onClick={handleDiscard}
-              type='button'
-              className='border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
-            >
+            <button onClick={handleDiscard} type='button' className='border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none' >
               Discard
             </button>
             <button

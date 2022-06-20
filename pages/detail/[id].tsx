@@ -20,6 +20,7 @@ interface IProps {
 
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
+  // TODO: for boolean variables, always use is or has as a start of the name isPlaying, isVideoMuted
   const [playing, setPlaying] = useState<Boolean>(false);
   const [videoMuted, setVideoMuted] = useState<Boolean>(false);
   const [comment, setComment] = useState<string>('');
