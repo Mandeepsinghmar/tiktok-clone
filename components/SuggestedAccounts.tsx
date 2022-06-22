@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';
 
-import { IUser } from '../../types';
+import { IUser } from '../types';
 
 interface IProps {
   fetchSuggestedAccounts: () => void;

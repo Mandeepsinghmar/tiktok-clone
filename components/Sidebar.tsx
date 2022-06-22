@@ -1,5 +1,3 @@
-// TODO: why are there three components inside of a Sidebar folder?
-// ADRIAN: What do you mean by three components? we do have Discover, footer and SuggestedAccounts I just made them seperately.
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -11,9 +9,9 @@ import { ImCancelCircle } from 'react-icons/im';
 import SuggestedAccounts from './SuggestedAccounts';
 import Discover from './Discover';
 import Footer from './Footer';
-import useUsersStore from '../../store/usersStore';
-import useAuthStore from '../../store/authStore';
-import { fetchGoogleResponse } from '../../utils';
+import useUsersStore from '../store/usersStore';
+import useAuthStore from '../store/authStore';
+import { fetchGoogleResponse } from '../utils';
 
 const Sidebar: NextPage = () => {
   const [showSidebar, setShowSidebar] = useState<Boolean>(true);
