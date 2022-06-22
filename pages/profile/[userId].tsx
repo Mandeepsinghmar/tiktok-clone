@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { GoVerified } from 'react-icons/go';
+import axios from 'axios';
 
-import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import NoResults from '../../components/NoResults';
 import { IUser, Video } from '../../types';
+import { BASE_URL } from '../../utils';
 
 interface IProps {
   data: {
@@ -16,17 +17,18 @@ interface IProps {
 }
 
 const Profile = ({ data }: IProps) => {
-  // TODO: use more meaningful variable names -> isVideoSectionActive
-  const [isVideos, setIsVideos] = useState(true);
+  const [showUserVideos, setShowUserVideos] = useState<Boolean>(true);
   const [videosList, setVideosList] = useState<Video[]>([]);
 
   const { user, userVideos, userLikedVideos } = data;
-  const videos = isVideos ? 'border-b-2 border-black' : 'text-gray-400';
-  const liked = !isVideos ? 'border-b-2 border-black' : 'text-gray-400';
+  const videos = showUserVideos ? 'border-b-2 border-black' : 'text-gray-400';
+  const liked = !setShowUserVideos
+    ? 'border-b-2 border-black'
+    : 'text-gray-400';
 
   useEffect(() => {
     const fetchVideos = async () => {
-      if (isVideos) {
+      if (showUserVideos) {
         setVideosList(userVideos);
       } else {
         setVideosList(userLikedVideos);
@@ -34,7 +36,7 @@ const Profile = ({ data }: IProps) => {
     };
 
     fetchVideos();
-  }, [isVideos, userLikedVideos, userVideos]);
+  }, [showUserVideos, userLikedVideos, userVideos]);
 
   return (
     <div className='w-full'>
@@ -45,7 +47,6 @@ const Profile = ({ data }: IProps) => {
             height={120}
             layout='responsive'
             className='rounded-full'
-            //  @ts-ignore
             src={user.image}
             alt='user-profile'
           />
@@ -53,7 +54,6 @@ const Profile = ({ data }: IProps) => {
 
         <div>
           <div className='text-md md:text-2xl font-bold tracking-wider flex gap-2 items-center justify-center lowercase'>
-            {/*  @ts-ignore */}
             <span>{user.userName.replace(/\s+/g, '')} </span>
             <GoVerified className='text-blue-400 md:text-xl text-md' />
           </div>
@@ -69,14 +69,14 @@ const Profile = ({ data }: IProps) => {
       <div>
         <div className='flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full'>
           <p
-            onClick={() => setIsVideos(true)}
+            onClick={() => setShowUserVideos(true)}
             className={`text-xl font-semibold cursor-pointer ${videos} mt-2`}
           >
             Videos
           </p>
           <p
             className={`text-xl font-semibold cursor-pointer ${liked} mt-2`}
-            onClick={() => setIsVideos(false)}
+            onClick={() => setShowUserVideos(false)}
           >
             Liked
           </p>
@@ -84,10 +84,12 @@ const Profile = ({ data }: IProps) => {
         <div className='flex gap-6 flex-wrap md:justify-start'>
           {videosList.length > 0 ? (
             videosList.map((post: any, idx: number) => (
-              <VideoCard key={idx} post={post} profile />
+              <VideoCard key={idx} post={post} profile={true} />
             ))
           ) : (
-            <NoResults text={`No ${isVideos ? '' : 'Liked'} Videos Yet`} />
+            <NoResults
+              text={`No ${showUserVideos ? '' : 'Liked'} Videos Yet`}
+            />
           )}
         </div>
       </div>
@@ -95,11 +97,15 @@ const Profile = ({ data }: IProps) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { userId }}: { params: { userId: string } }) => {
-  const data = await fetcher(`${base_url}/api/profile/${userId}`);
-  
+export const getServerSideProps = async ({
+  params: { userId },
+}: {
+  params: { userId: string };
+}) => {
+  const res = await axios.get(`${BASE_URL}/api/profile/${userId}`);
+
   return {
-    props: { data },
+    props: { data: res.data },
   };
 };
 export default Profile;

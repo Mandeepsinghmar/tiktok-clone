@@ -1,15 +1,15 @@
 import create from 'zustand';
-// TODO: Why are we using zustand? Can this be done using React Context?
 import { devtools } from 'zustand/middleware';
+import axios from 'axios';
 
-import { base_url, fetcher } from './../utils/index';
+import { BASE_URL } from './../utils/index';
 
 const useUsersStore = create(
   devtools((set) => ({
     suggestedAccounts: [],
     fetchSuggestedAccounts: async () => {
-      const data = await fetcher(`${base_url}/api/auth`);
-      set({ suggestedAccounts: data });
+      const res = await axios.get(`${BASE_URL}/api/auth`);
+      set({ suggestedAccounts: res.data });
     },
   }))
 );

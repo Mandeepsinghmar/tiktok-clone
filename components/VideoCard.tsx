@@ -1,13 +1,17 @@
-// TODO: Remove these from all files and fix the types
-// @ts-nocheck
-
 import React from 'react';
 import { GoVerified } from 'react-icons/go';
 import { BsPlay } from 'react-icons/bs';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const VideoCard = ({ post, profile }) => {
+import { Video } from '../types';
+
+interface IProps {
+  post: Video;
+  profile: Boolean;
+}
+
+const VideoCard = ({ post, profile }: IProps) => {
   return (
     <div>
       <Link href={`/detail/${post._id}`}>

@@ -9,10 +9,11 @@ import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import toast from 'react-hot-toast';
 
 import Comments from '../../components/Comments';
-import { fetcher, base_url } from '../../utils';
+import { BASE_URL } from '../../utils';
 import LikeComment from '../../components/LikeComment';
 import useAuthStore from '../../store/authStore';
 import { IUser, Video } from '../../types';
+import axios from 'axios';
 
 interface IProps {
   postDetails: Video;
@@ -20,45 +21,39 @@ interface IProps {
 
 const Detail = ({ postDetails }: IProps) => {
   const [post, setPost] = useState(postDetails);
-  // TODO: for boolean variables, always use is or has as a start of the name isPlaying, isVideoMuted
-  const [playing, setPlaying] = useState<Boolean>(false);
-  const [videoMuted, setVideoMuted] = useState<Boolean>(false);
-  const [comment, setComment] = useState<string>('');
+  const [isPlaying, setIsPlaying] = useState<Boolean>(false);
+  const [isVideoMuted, setIsVideoMuted] = useState<Boolean>(false);
   const [isPostingComment, setIsPostingComment] = useState<Boolean>(false);
+  const [comment, setComment] = useState<string>('');
 
   const videoRef = useRef<any>();
   const router = useRouter();
 
-  const { userProfile }: { userProfile: IUser | null } = useAuthStore();
+  const { userProfile }: any = useAuthStore();
 
   const onVideoClick = () => {
-    if (playing) {
+    if (isPlaying) {
       videoRef.current.pause();
-      setPlaying(false);
+      setIsPlaying(false);
     } else {
       videoRef.current.play();
-      setPlaying(true);
+      setIsPlaying(true);
     }
   };
 
   useEffect(() => {
     if (post) {
-      videoRef.current.muted = videoMuted;
+      videoRef.current.muted = isVideoMuted;
     }
-  }, [post, videoMuted]);
+  }, [post, isVideoMuted]);
 
   const handleLike = async () => {
     if (userProfile) {
-      const res = await fetch(`${base_url}/api/like`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          // @ts-ignore
-          userId: userProfile.googleId,
-          postId: post._id,
-        }),
+      const res = await axios.put(`${BASE_URL}/api/like`, {
+        userId: userProfile.googleId,
+        postId: post._id,
       });
-      const data = await res.json();
-      setPost({ ...post, likes: data.likes });
+      setPost({ ...post, likes: res.data.likes });
     } else {
       toast.error(' Please Log in to like and comment on videos.');
     }
@@ -66,16 +61,11 @@ const Detail = ({ postDetails }: IProps) => {
 
   const handleDislike = async () => {
     if (userProfile) {
-      const res = await fetch(`${base_url}/api/dislike`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          // @ts-ignore
-          userId: userProfile.googleId,
-          postId: post._id,
-        }),
+      const res = await axios.put(`${BASE_URL}/api/dislike`, {
+        userId: userProfile.googleId,
+        postId: post._id,
       });
-      const data = await res.json();
-      setPost({ ...post, likes: data.likes });
+      setPost({ ...post, likes: res.data.likes });
     } else {
       toast.error(' Please Log in to like and comment on videos.');
     }
@@ -87,14 +77,12 @@ const Detail = ({ postDetails }: IProps) => {
     if (userProfile) {
       if (comment) {
         setIsPostingComment(true);
-        const res = await fetch(`${base_url}/api/post/${post._id}`, {
-          method: 'PUT',
-          // @ts-ignore
-          body: JSON.stringify({ userId: userProfile.googleId, comment }),
+        const res = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+          userId: userProfile.googleId,
+          comment,
         });
-        const data = await res.json();
 
-        setPost({ ...post, comments: data.comments });
+        setPost({ ...post, comments: res.data.comments });
         setComment('');
         setIsPostingComment(false);
       }
@@ -134,7 +122,7 @@ const Detail = ({ postDetails }: IProps) => {
               </div>
 
               <div className='absolute top-[45%] left-[40%]  cursor-pointer'>
-                {!playing && (
+                {!isPlaying && (
                   <button onClick={onVideoClick}>
                     <BsFillPlayFill className='text-white text-6xl lg:text-8xl' />
                   </button>
@@ -142,12 +130,12 @@ const Detail = ({ postDetails }: IProps) => {
               </div>
             </div>
             <div className='absolute bottom-5 lg:bottom-10 right-5 lg:right-10  cursor-pointer'>
-              {videoMuted ? (
-                <button onClick={() => setVideoMuted(false)}>
+              {isVideoMuted ? (
+                <button onClick={() => setIsVideoMuted(false)}>
                   <HiVolumeOff className='text-white text-3xl lg:text-4xl' />
                 </button>
               ) : (
-                <button onClick={() => setVideoMuted(true)}>
+                <button onClick={() => setIsVideoMuted(true)}>
                   <HiVolumeUp className='text-white text-3xl lg:text-4xl' />
                 </button>
               )}
@@ -201,11 +189,15 @@ const Detail = ({ postDetails }: IProps) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { id } }: any) => {
-  const postDetails = await fetcher(`${base_url}/api/post/${id}`);
+export const getServerSideProps = async ({
+  params: { id },
+}: {
+  params: { id: string };
+}) => {
+  const res = await axios.get(`${BASE_URL}/api/post/${id}`);
 
   return {
-    props: { postDetails },
+    props: { postDetails: res.data },
   };
 };
 

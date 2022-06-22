@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
+import axios from 'axios';
 
 import VideoCard from '../components/HomeVideoCard';
-import { fetcher, base_url } from '../utils';
+import { BASE_URL } from '../utils';
 import { Video } from '../types';
 
 const Home: NextPage = () => {
@@ -10,9 +11,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const videosData = await fetcher(`${base_url}/api/posts`);
-
-      setVideos(videosData);
+      const videosData = await axios.get(`${BASE_URL}/api/post`);
+      setVideos(videosData.data);
     };
 
     fetchVideos();
@@ -21,10 +21,7 @@ const Home: NextPage = () => {
   return (
     <div className='flex flex-col gap-10 videos'>
       {videos?.map((video: Video) => (
-        // TODO: this div can be put inside of the VideoCard Component
-        <div key={video._id}>
-          <VideoCard videoData={video} />
-        </div>
+        <VideoCard videoData={video} key={video._id} />
       ))}
     </div>
   );

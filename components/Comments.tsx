@@ -5,7 +5,7 @@ import { GoVerified } from 'react-icons/go';
 
 import useUsersStore from '../store/usersStore';
 import NoResults from './NoResults';
-import { IUser, SuggestedAccountsState } from '../types';
+import { IUser } from '../types';
 
 interface IProps {
   isPostingComment: Boolean;
@@ -22,8 +22,18 @@ interface IComment {
   postedBy: { _ref?: string; _id?: string };
 }
 
-const Comments = ({ comment, setComment, addComment, comments, isPostingComment }: IProps) => {
-  const { suggestedAccounts }: SuggestedAccountsState = useUsersStore();
+interface ISuggestedAccount {
+  suggestedAccounts?: IUser[];
+}
+
+const Comments = ({
+  comment,
+  setComment,
+  addComment,
+  comments,
+  isPostingComment,
+}: IProps) => {
+  const { suggestedAccounts }: ISuggestedAccount = useUsersStore();
 
   return (
     <div className='border-t-2 border-gray-200 pt-4 px-10 mt-4 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]'>
@@ -42,7 +52,6 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
                               width={48}
                               height={48}
                               className='rounded-full cursor-pointer'
-                              // @ts-ignore
                               src={user.image}
                               alt='user-profile'
                               layout='responsive'
@@ -73,7 +82,6 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
         <form onSubmit={addComment} className='flex gap-4'>
           <input
             value={comment}
-            // @ts-ignore
             onChange={(e) => setComment(e.target.value.trim())}
             className='bg-primary px-6 py-4 text-md font-medium border-2 w-[250px] md:w-[700px] lg:w-[350px] border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 flex-1 rounded-lg'
             placeholder='Add comment..'

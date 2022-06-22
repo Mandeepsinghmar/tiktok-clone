@@ -3,10 +3,10 @@ import { MdFavorite, MdOutlineContentCopy } from 'react-icons/md';
 import { NextPage } from 'next';
 import { AiFillMessage } from 'react-icons/ai';
 import copy from 'copy-to-clipboard';
+import toast from 'react-hot-toast';
 
 import useAuthStore from '../store/authStore';
-import { base_url } from '../utils';
-import toast from 'react-hot-toast';
+import { BASE_URL } from '../utils';
 
 interface IProps {
   id?: string;
@@ -17,10 +17,19 @@ interface IProps {
   handleDislike: () => void;
 }
 
-const LikeComment: NextPage<IProps> = ({ likes, comments, flex, handleLike, handleDislike, id }) => {
+const LikeComment: NextPage<IProps> = ({
+  likes,
+  comments,
+  flex,
+  handleLike,
+  handleDislike,
+  id,
+}) => {
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const { userProfile }: any = useAuthStore();
-  let filterLikes = likes?.filter((item: any) => item._ref === userProfile?.googleId);
+  let filterLikes = likes?.filter(
+    (item: any) => item._ref === userProfile?.googleId
+  );
 
   useEffect(() => {
     if (filterLikes?.length > 0) {
@@ -34,11 +43,17 @@ const LikeComment: NextPage<IProps> = ({ likes, comments, flex, handleLike, hand
     <div className={`${flex} gap-6`}>
       <div className='mt-4 flex flex-col justify-center items-center cursor-pointer'>
         {alreadyLiked ? (
-          <div className='bg-primary rounded-full p-2 md:p-4 text-red-500 ' onClick={handleDislike} >
+          <div
+            className='bg-primary rounded-full p-2 md:p-4 text-red-500 '
+            onClick={handleDislike}
+          >
             <MdFavorite className='text-lg md:text-2xl' />
           </div>
         ) : (
-          <div className='bg-primary rounded-full p-2 md:p-4 ' onClick={handleLike} >
+          <div
+            className='bg-primary rounded-full p-2 md:p-4 '
+            onClick={handleLike}
+          >
             <MdFavorite className='text-lg md:text-2xl' />
           </div>
         )}
@@ -54,7 +69,7 @@ const LikeComment: NextPage<IProps> = ({ likes, comments, flex, handleLike, hand
         <div
           className='bg-primary rounded-full p-2 md:p-4'
           onClick={() => {
-            copy(`${base_url}/detail/${id}`);
+            copy(`${BASE_URL}/detail/${id}`);
             toast.success('Video Link Copied!');
           }}
         >

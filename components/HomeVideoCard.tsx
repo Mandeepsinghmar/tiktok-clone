@@ -1,4 +1,3 @@
-// TODO: Why is this file in a folder?
 import React, { useEffect, useRef, useState } from 'react';
 import { NextPage } from 'next';
 import Image from 'next/image';
@@ -7,14 +6,16 @@ import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 
-import VideoSidebar from '../LikeComment';
-import { Video } from '../../types';
+import VideoSidebar from './LikeComment';
+import { Video } from './../types';
 
 interface IProps {
   videoData: Video;
 }
 
-const VideoCard: NextPage<IProps> = ({ videoData: { caption, postedBy, video, likes, comments, _id } }) => {
+const VideoCard: NextPage<IProps> = ({
+  videoData: { caption, postedBy, video, likes, comments, _id },
+}) => {
   const [playing, setPlaying] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [videoMuted, setVideoMuted] = useState(false);
@@ -29,6 +30,7 @@ const VideoCard: NextPage<IProps> = ({ videoData: { caption, postedBy, video, li
       setPlaying(true);
     }
   };
+
   useEffect(() => {
     if (null !== videoRef.current) videoRef.current.muted = videoMuted;
   }, [videoMuted]);

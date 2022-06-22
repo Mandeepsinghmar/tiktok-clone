@@ -1,11 +1,11 @@
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
 import { Toaster } from 'react-hot-toast';
 
-// TODO: transform into arrow function component
-function MyApp({ Component, pageProps }: AppProps) {
+import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
+import '../styles/globals.css';
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <div className='xl:w-[1200px] m-auto overflow-hidden h-[100vh]'>
       <Toaster />
@@ -20,6 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       </div>
     </div>
   );
-}
+};
 
 export default MyApp;

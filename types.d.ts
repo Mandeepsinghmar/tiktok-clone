@@ -32,11 +32,7 @@ export interface Video {
 export interface IUser {
   googleId?: string;
   _id?: string;
-  userName?: string;
-  image?: string;
+  userName: string;
+  image?: string | StaticImport;
   imageUrl?: string;
-}
-
-interface SuggestedAccountsState {
-  suggestedAccounts?: IUser[];
 }

@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
-import { fetcher, base_url } from '../../utils';
 import VideoCard from '../../components/VideoCard';
 import NoResults from '../../components/NoResults';
 import { Video } from '../../types';
+import { BASE_URL } from '../../utils';
 
 interface IProps {
   videos: Video[];
@@ -50,11 +51,15 @@ const Discover = ({ videos }: IProps) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { topic } }: any) => {
-  const videos = await fetcher(`${base_url}/api/discover/${topic}`);
+export const getServerSideProps = async ({
+  params: { topic },
+}: {
+  params: { topic: string };
+}) => {
+  const res = await axios.get(`${BASE_URL}/api/discover/${topic}`);
 
   return {
-    props: { videos },
+    props: { videos: res.data },
   };
 };
 

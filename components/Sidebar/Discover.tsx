@@ -1,47 +1,13 @@
-// TODO: Remove all unused imports : useState
-import React, { useState } from 'react';
+import React from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { BsEmojiSunglasses } from 'react-icons/bs';
-import { GiCakeSlice, GiGalaxy, GiLipstick } from 'react-icons/gi';
-import { FaPaw, FaMedal, FaGamepad } from 'react-icons/fa';
 import { useRouter } from 'next/router';
+
+import { topics } from '../../utils/topics';
 
 const Discover: NextPage = () => {
   const router = useRouter();
   const { topic } = router.query;
-
-  // TODO: Put this in another file so that we can simply import it.
-  const topics = [
-    {
-      name: 'comedy',
-      icon: <BsEmojiSunglasses />,
-    },
-    {
-      name: 'gaming',
-      icon: <FaGamepad />,
-    },
-    {
-      name: 'food',
-      icon: <GiCakeSlice />,
-    },
-    {
-      name: 'dance',
-      icon: <GiGalaxy />,
-    },
-    {
-      name: 'beauty',
-      icon: <GiLipstick />,
-    },
-    {
-      name: 'animals',
-      icon: <FaPaw />,
-    },
-    {
-      name: 'sports',
-      icon: <FaMedal />,
-    },
-  ];
 
   const activeTopicStyle =
     'xl:border-2 hover:bg-primary xl:border-red-500 px-3 py-2 rounded xl:rounded-full flex items-center gap-2 justify-center cursor-pointer text-red-500';

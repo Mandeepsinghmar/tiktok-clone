@@ -1,47 +1,49 @@
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
 import { GoVerified } from 'react-icons/go';
+import Link from 'next/link';
+import axios from 'axios';
 
 import NoResults from '../../components/NoResults';
 import VideoCard from '../../components/VideoCard';
 import useUsersStore from '../../store/usersStore';
-import { fetcher, base_url } from '../../utils';
-import { SuggestedAccountsState } from '../../types';
-import Link from 'next/link';
-
-// TODO: REMOVE ALL INSTANCES OF @TS-IGNORE IN ALL FILES. We should try to find proper TypeScript solutions and properly setup the types so we don't have to ignore anything
+import { BASE_URL } from '../../utils';
+import { IUser } from '../../types';
 
 const Search = ({ videos }: any) => {
   const [isAccounts, setIsAccounts] = useState(true);
-  const { suggestedAccounts }: SuggestedAccountsState = useUsersStore();
+  const { suggestedAccounts }: any = useUsersStore();
 
   const router = useRouter();
-  const { searchTerm } = router.query;
+  const { searchTerm }: any = router.query;
 
   const accounts = isAccounts ? 'border-b-2 border-black' : 'text-gray-400';
   const isVideos = !isAccounts ? 'border-b-2 border-black' : 'text-gray-400';
-  const searchedAccounts = suggestedAccounts?.filter((user) =>
-    // @ts-ignore
+  const searchedAccounts = suggestedAccounts?.filter((user: IUser) =>
     user.userName.toLowerCase().includes(searchTerm)
   );
 
   return (
     <div className='w-full  '>
       <div className='flex gap-10 mb-10 border-b-2 border-gray-200 md:fixed z-50 bg-white w-full'>
-        <p onClick={() => setIsAccounts(true)} className={`text-xl  font-semibold cursor-pointer ${accounts} mt-2`} >
+        <p
+          onClick={() => setIsAccounts(true)}
+          className={`text-xl  font-semibold cursor-pointer ${accounts} mt-2`}
+        >
           Accounts
         </p>
-        <p className={`text-xl font-semibold cursor-pointer ${isVideos} mt-2`} onClick={() => setIsAccounts(false)} >
+        <p
+          className={`text-xl font-semibold cursor-pointer ${isVideos} mt-2`}
+          onClick={() => setIsAccounts(false)}
+        >
           Videos
         </p>
       </div>
       {isAccounts ? (
         <div className='md:mt-16'>
-          {/* @ts-ignore */}
           {searchedAccounts.length > 0 ? (
-            // @ts-ignore
-            searchedAccounts.map((user, idx) => (
+            searchedAccounts.map((user: IUser, idx: number) => (
               <Link key={idx} href={`/profile/${user._id}`}>
                 <div className=' flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'>
                   <div>
@@ -50,7 +52,6 @@ const Search = ({ videos }: any) => {
                       height={50}
                       className='rounded-full'
                       alt='user-profile'
-                      // @ts-ignore
                       src={user.image}
                     />
                   </div>
@@ -75,7 +76,7 @@ const Search = ({ videos }: any) => {
         <div className='md:mt-16 flex flex-wrap gap-6 md:justify-start '>
           {videos.length > 0 ? (
             videos.map((post: any, idx: number) => (
-              <VideoCard post={post} key={idx} profile={undefined} />
+              <VideoCard post={post} key={idx} profile />
             ))
           ) : (
             <NoResults text={`No Video Results for ${searchTerm}`} />
@@ -86,11 +87,15 @@ const Search = ({ videos }: any) => {
   );
 };
 
-export const getServerSideProps = async ({ params: { searchTerm } }: any) => {
-  const videos = await fetcher(`${base_url}/api/search/${searchTerm}`);
+export const getServerSideProps = async ({
+  params: { searchTerm },
+}: {
+  params: { searchTerm: string };
+}) => {
+  const res = await axios.get(`${BASE_URL}/api/search/${searchTerm}`);
 
   return {
-    props: { videos },
+    props: { videos: res.data },
   };
 };
 

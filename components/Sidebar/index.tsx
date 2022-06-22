@@ -1,4 +1,5 @@
 // TODO: why are there three components inside of a Sidebar folder?
+// ADRIAN: What do you mean by three components? we do have Discover, footer and SuggestedAccounts I just made them seperately.
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -12,19 +13,13 @@ import Discover from './Discover';
 import Footer from './Footer';
 import useUsersStore from '../../store/usersStore';
 import useAuthStore from '../../store/authStore';
-import { responseGoogle } from '../../utils';
-import { IUser } from '../../types';
-
-interface IProps {
-  fetchSuggestedAccounts?: () => void;
-  suggestedAccounts?: IUser[];
-}
+import { fetchGoogleResponse } from '../../utils';
 
 const Sidebar: NextPage = () => {
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [showSidebar, setShowSidebar] = useState<Boolean>(true);
 
   const { pathname } = useRouter();
-  const { fetchSuggestedAccounts, suggestedAccounts }: IProps = useUsersStore();
+  const { fetchSuggestedAccounts, suggestedAccounts }: any = useUsersStore();
   const { addUser, userProfile } = useAuthStore();
 
   const activeLink =
@@ -72,8 +67,8 @@ const Sidebar: NextPage = () => {
                       Log in
                     </button>
                   )}
-                  onSuccess={(res) => responseGoogle(res, addUser)}
-                  onFailure={(res) => responseGoogle(res, addUser)}
+                  onSuccess={(res) => fetchGoogleResponse(res, addUser)}
+                  onFailure={(res) => fetchGoogleResponse(res, addUser)}
                   cookiePolicy='single_host_origin'
                 />
               </div>
@@ -82,9 +77,7 @@ const Sidebar: NextPage = () => {
 
           <Discover />
           <SuggestedAccounts
-            // @ts-ignore
             fetchSuggestedAccounts={fetchSuggestedAccounts}
-            // @ts-ignore
             suggestedAccounts={suggestedAccounts}
           />
           <Footer />
