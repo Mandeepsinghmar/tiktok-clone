@@ -1,6 +1,3 @@
-// TODO: Add a comment displaying a link to where these queries can be generated.
-// ADRIAN: We have to write queries by ourselves we can't genereate them.
-
 export const allPostsQuery = () => {
   const query = `*[_type == "post"] | order(_createdAt desc){
     _id,

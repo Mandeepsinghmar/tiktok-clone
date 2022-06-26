@@ -4,17 +4,14 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';
 
-import { IUser } from '../../types';
+import { IUser } from '../types';
 
 interface IProps {
   fetchSuggestedAccounts: () => void;
   suggestedAccounts: IUser[];
 }
 
-const SuggestedAccounts: NextPage<IProps> = ({
-  fetchSuggestedAccounts,
-  suggestedAccounts,
-}) => {
+const SuggestedAccounts: NextPage<IProps> = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
   useEffect(() => {
     fetchSuggestedAccounts();
   }, [fetchSuggestedAccounts]);

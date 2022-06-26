@@ -1,5 +1,3 @@
-// TODO: why are there three components inside of a Sidebar folder?
-// ADRIAN: What do you mean by three components? we do have Discover, footer and SuggestedAccounts I just made them seperately.
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -11,9 +9,9 @@ import { ImCancelCircle } from 'react-icons/im';
 import SuggestedAccounts from './SuggestedAccounts';
 import Discover from './Discover';
 import Footer from './Footer';
-import useUsersStore from '../../store/usersStore';
-import useAuthStore from '../../store/authStore';
-import { fetchGoogleResponse } from '../../utils';
+import useUsersStore from '../store/usersStore';
+import useAuthStore from '../store/authStore';
+import { fetchGoogleResponse } from '../utils';
 
 const Sidebar: NextPage = () => {
   const [showSidebar, setShowSidebar] = useState<Boolean>(true);
@@ -23,7 +21,7 @@ const Sidebar: NextPage = () => {
   const { addUser, userProfile } = useAuthStore();
 
   const activeLink =
-    'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-red-500 rounded';
+    'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded';
 
   const normalLink =
     'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded';
@@ -60,7 +58,7 @@ const Sidebar: NextPage = () => {
                   clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
                   render={(renderProps) => (
                     <button
-                      className='bg-white text-lg text-red-500 border-[1px] border-red-500 font-semibold px-6 py-3 rounded-md outline-none w-full mt-3'
+                      className='bg-white text-lg text-[#F51997] border-[1px] border-[#F51997] font-semibold px-6 py-3 rounded-md outline-none w-full mt-3'
                       onClick={renderProps.onClick}
                       disabled={renderProps.disabled}
                     >
