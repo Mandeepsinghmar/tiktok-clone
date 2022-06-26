@@ -9,16 +9,19 @@ import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
 import { BASE_URL } from '../utils';
 import { client } from '../utils/client';
+import toast from 'react-hot-toast';
 
 const Upload = () => {
   const [caption, setCaption] = useState('');
-  const [topic, setTopic] = useState<String>('cars');
+  const [topic, setTopic] = useState<String>('comedy');
   const [loading, setLoading] = useState<Boolean>(false);
   const [savingPost, setSavingPost] = useState<Boolean>(false);
-  const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>();
+  const [videoAsset, setVideoAsset] = useState<
+    SanityAssetDocument | undefined
+  >();
   const [wrongFileType, setWrongFileType] = useState<Boolean>(false);
 
-  const userProfile: IUser | null = useAuthStore((state) => state.userProfile);
+  const userProfile: any = useAuthStore((state) => state.userProfile);
   const router = useRouter();
 
   useEffect(() => {
@@ -63,19 +66,19 @@ const Upload = () => {
             _ref: videoAsset?._id,
           },
         },
-        // @ts-ignore
-        userId: userProfile?.googleId,
+        userId: userProfile.googleId,
         postedBy: {
           _type: 'postedBy',
-          // @ts-ignore
-          _ref: userProfile?.googleId,
+          _ref: userProfile.googleId,
         },
         topic,
       };
 
       await axios.post(`${BASE_URL}/api/post`, doc);
-
-      router.push('/');
+      toast.success('New video created.');
+      handleDiscard();
+    } else {
+      toast.error('Add all fields');
     }
   };
 
@@ -177,7 +180,15 @@ const Upload = () => {
             }}
             className='outline-none lg:w-650 border-2 border-gray-200 text-md capitalize lg:p-4 p-2 rounded cursor-pointer'
           >
-            {['comedy','gaming','food','dance','beauty','sports','animals'].map((item) => (
+            {[
+              'comedy',
+              'gaming',
+              'food',
+              'dance',
+              'beauty',
+              'sports',
+              'animals',
+            ].map((item) => (
               <option
                 key={item}
                 className=' outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300'

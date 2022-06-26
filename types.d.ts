@@ -33,6 +33,6 @@ export interface IUser {
   googleId?: string;
   _id?: string;
   userName: string;
+  imageUrl?: string | StaticImport;
   image?: string | StaticImport;
-  imageUrl?: string;
 }
