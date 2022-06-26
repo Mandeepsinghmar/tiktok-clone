@@ -22,9 +22,7 @@ const Profile = ({ data }: IProps) => {
 
   const { user, userVideos, userLikedVideos } = data;
   const videos = showUserVideos ? 'border-b-2 border-black' : 'text-gray-400';
-  const liked = !setShowUserVideos
-    ? 'border-b-2 border-black'
-    : 'text-gray-400';
+  const liked = !setShowUserVideos ? 'border-b-2 border-black' : 'text-gray-400';
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -68,16 +66,10 @@ const Profile = ({ data }: IProps) => {
       </div>
       <div>
         <div className='flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full'>
-          <p
-            onClick={() => setShowUserVideos(true)}
-            className={`text-xl font-semibold cursor-pointer ${videos} mt-2`}
-          >
+          <p className={`text-xl font-semibold cursor-pointer ${videos} mt-2`} onClick={() => setShowUserVideos(true)}>
             Videos
           </p>
-          <p
-            className={`text-xl font-semibold cursor-pointer ${liked} mt-2`}
-            onClick={() => setShowUserVideos(false)}
-          >
+          <p className={`text-xl font-semibold cursor-pointer ${liked} mt-2`} onClick={() => setShowUserVideos(false)}>
             Liked
           </p>
         </div>

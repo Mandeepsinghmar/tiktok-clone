@@ -10,7 +10,7 @@ import { IoMdAdd } from 'react-icons/io';
 import useAuthStore from '../store/authStore';
 import { IUser } from '../types';
 import { fetchGoogleResponse } from '../utils';
-import Logo from '../utils/tiktok-logo.png';
+import Logo from '../utils/tiktik-logo.png';
 
 const Navbar = () => {
   const [user, setUser] = useState<IUser | null>();
@@ -33,8 +33,6 @@ const Navbar = () => {
       <Link href='/'>
         <div className='w-[100px] md:w-[129px] md:h-[30px] h-[38px]'>
           <Image
-            width={129}
-            height={38}
             className='cursor-pointer'
             src={Logo}
             alt='logo'
@@ -105,7 +103,7 @@ const Navbar = () => {
               clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
               render={(renderProps) => (
                 <button
-                  className='bg-red-500 text-lg text-white font-semibold px-6 py-1 rounded-md outline-none'
+                  className='bg-[#F51997] text-lg text-white font-semibold px-6 py-1 rounded-md outline-none'
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >

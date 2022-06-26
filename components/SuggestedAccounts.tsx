@@ -11,10 +11,7 @@ interface IProps {
   suggestedAccounts: IUser[];
 }
 
-const SuggestedAccounts: NextPage<IProps> = ({
-  fetchSuggestedAccounts,
-  suggestedAccounts,
-}) => {
+const SuggestedAccounts: NextPage<IProps> = ({ fetchSuggestedAccounts, suggestedAccounts }) => {
   useEffect(() => {
     fetchSuggestedAccounts();
   }, [fetchSuggestedAccounts]);

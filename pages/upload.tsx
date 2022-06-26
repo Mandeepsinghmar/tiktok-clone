@@ -15,9 +15,7 @@ const Upload = () => {
   const [topic, setTopic] = useState<String>('cars');
   const [loading, setLoading] = useState<Boolean>(false);
   const [savingPost, setSavingPost] = useState<Boolean>(false);
-  const [videoAsset, setVideoAsset] = useState<
-    SanityAssetDocument | undefined
-  >();
+  const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>();
   const [wrongFileType, setWrongFileType] = useState<Boolean>(false);
 
   const userProfile: IUser | null = useAuthStore((state) => state.userProfile);
@@ -123,7 +121,7 @@ const Upload = () => {
                         Up to 10 minutes <br />
                         Less than 2 GB
                       </p>
-                      <p className='bg-red-500 text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'>
+                      <p className='bg-[#F51997] text-center mt-8 rounded text-white text-md font-medium p-2 w-52 outline-none'>
                         Select file
                       </p>
                     </div>
@@ -179,15 +177,7 @@ const Upload = () => {
             }}
             className='outline-none lg:w-650 border-2 border-gray-200 text-md capitalize lg:p-4 p-2 rounded cursor-pointer'
           >
-            {[
-              'comedy',
-              'gaming',
-              'food',
-              'dance',
-              'beauty',
-              'sports',
-              'animals',
-            ].map((item) => (
+            {['comedy','gaming','food','dance','beauty','sports','animals'].map((item) => (
               <option
                 key={item}
                 className=' outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300'
@@ -209,7 +199,7 @@ const Upload = () => {
               disabled={videoAsset?.url ? false : true}
               onClick={handlePost}
               type='button'
-              className='bg-red-500 text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
+              className='bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
             >
               {savingPost ? 'Posting...' : 'Post'}
             </button>

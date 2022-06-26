@@ -21,7 +21,7 @@ const Sidebar: NextPage = () => {
   const { addUser, userProfile } = useAuthStore();
 
   const activeLink =
-    'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-red-500 rounded';
+    'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded';
 
   const normalLink =
     'flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold rounded';
@@ -58,7 +58,7 @@ const Sidebar: NextPage = () => {
                   clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}
                   render={(renderProps) => (
                     <button
-                      className='bg-white text-lg text-red-500 border-[1px] border-red-500 font-semibold px-6 py-3 rounded-md outline-none w-full mt-3'
+                      className='bg-white text-lg text-[#F51997] border-[1px] border-[#F51997] font-semibold px-6 py-3 rounded-md outline-none w-full mt-3'
                       onClick={renderProps.onClick}
                       disabled={renderProps.disabled}
                     >
