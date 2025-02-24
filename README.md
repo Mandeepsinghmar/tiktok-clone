@@ -1,6 +1,6 @@
 # TikTok Clone
 
-A TikTok-like social media application built using Next.js, React, and Sanity as the backend.
+A TikTok-like social media application built using Next.js, React, zustand and Sanity as the backend.
 
 ## Features
 - Video uploading and sharing
