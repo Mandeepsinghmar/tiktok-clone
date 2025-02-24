@@ -54,9 +54,9 @@ Ensure you have the following installed:
 ## Environment Variables
 Create a `.env.local` file and add the required environment variables:
 ```
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=production
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+NEXT_PUBLIC_SANITY_TOKEN=your_token
+NEXT_PUBLIC_GOOGLE_API_TOKEN=your_google_client_id
+NEXT_PUBLIC_BASE_URL=your_url
 ```
 
 ## Contributing
