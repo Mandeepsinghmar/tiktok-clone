@@ -28,7 +28,7 @@ Ensure you have the following installed:
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/tiktok-clone.git
+   git clone git@github.com:Mandeepsinghmar/tiktok-clone.git
    cd tiktok-clone
    ```
 2. Install dependencies:
